@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="maincontent">
+                
+
+
+                <div class="row">
+                    <div class="box box-primary">
+                        <div class="box-body">
+                             
+                        
+                                <h:form id="formproducto_fnd">
+                                    <p:commandButton     action="#{restClientJap.cancelarProdcuto_fnd()}" class="btn" value="Buscar Prodcutos" update="cproducto_fnd,:fnd_producto:tproducto_fnd"     onclick="PF('prdCost').show();" >
+                                    
+                                    </p:commandButton>
+                                  
+                                </h:form>
+                            </div>
+                        <h:form id="cproducto_fnd" >
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                              <div class="box-body">
+                                  <p:tabView  >
+        <p:tab title="Detalle de Info.">
+            <div class="col-md-3">
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcoigo_fnd">Codigo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.codigo_fnd}"  class="form-control" id="cpcoigo_fnd" placeholder="codigo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpfecharecepcion_fnd">Fecha Recepcion</h:outputLabel>
+                                        <p:calendar pattern="dd/MM/yyyy" showOn="button" value="#{restClientJap.cpfecha_recepcion_fnd}"   id="cpfecharecepcion_fnd" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="idproducto_fnd">Id Cliente</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpid_fnd}"  class="form-control" id="idproducto_fnd" placeholder="ID" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpdescripcion_fnd">Descripcion</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpdescripcion_fnd}"  class="form-control" id="cpdescripcion_fnd" placeholder="descripcion" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpmarca_fnd">Marca</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_marca_fnd}" style="width:100%" id="cpmarca_fnd" >
+                                            <p:ajax listener="#{restClientJap.loadCtipoModeloBymarca_fnd()}" update="cpmodelo_fnd" />
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                                      <f:selectItems var="c" value="#{restClientJap.cpcModeloMarcaListcbx_fnd}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                <div class="form-group">
+                                        <h:outputLabel for="cpmodelo_fnd">Modelo</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_modelo}" style="width:100%" id="cpmodelo_fnd" >
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />           
+                                                      <f:selectItems var="c" value="#{restClientJap.cpcModeloListcbx_fnd}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    
+
+                                </div>
+ <div class="col-md-2">
+     
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcategoria_fnd">Categoria</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_categoria_fnd}" style="width:100%" id="cpcategoria_fnd" >
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                                      <f:selectItems var="c" value="#{restClientJap.cpccategoriaListcbx_fnd}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstock_fnd">Stock</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock_fnd}"  class="form-control" id="cpstock_fnd" placeholder="stock" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstockminimo_fnd">Stock Minimo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock_minimo_fnd}"  class="form-control" id="cpstockminimo_fnd" placeholder="stock minimo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstockmaximo_fnd">Stock Maximo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock_maximo_fnd}"  class="form-control" id="cpstockmaximo_fnd" placeholder="stock maximo" />
+                                    </div>
+                                    
+                                    
+                                </div>
+            
+            </p:tab>
+                                 <p:tab  title="Precios y Cosotos">                                     
+                                       <div class="col-md-2">
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpcostocompra_fnd">Costo Compra</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_compra_fnd}"  class="form-control" id="cpcostocompra_fnd" placeholder="costo compra" />
+                                    </div>
+                                     
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcostocontable_fnd">Costo Contable</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_contable_fnd}"  class="form-control" id="cpcostocontable_fnd" placeholder="costo contable" />
+                                    </div>
+                                           <div class="form-group">
+                                        <h:outputLabel for="cpultimoCsinimpto_fnd">Ult. Costo sin impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpultimo_costo_s_impuesto_fnd}"  class="form-control" id="cpultimoCsinimpto_fnd" placeholder="ult. costo sin impto." />
+                                    </div>
+                                            <div class="form-group">
+                                        <h:outputLabel for="cpcostoprosinimpues_fnd">Costo prom. sin impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_prom_s_impuesto_fnd}"  class="form-control" id="cpcostoprosinimpues_fnd" placeholder="costo prom. sin impto." />
+                                    </div>
+                                   
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpcostofob_fnd">Costo Fob</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_fob_fnd}"  class="form-control" id="cpcostofob_fnd" placeholder="costo fob" />
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpultimoCcinimpto_fnd">Ult. Costo con impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpultimo_costo_c_impuesto_fnd}"  class="form-control" id="cpultimoCcinimpto_fnd" placeholder="ult. costo con impto." />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcostoproconimpues_fnd">Costo prom. con impto</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_prom_c_impuesto_fnd}"  class="form-control" id="cpcostoproconimpues_fnd" placeholder="costo prom. con impto." />
+                                    </div>
+                                    
+                                 
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpprecio1_fnd">Precio 1</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpprecio1_fnd}"  class="form-control" id="cpprecio1_fnd" placeholder="precio 1" />
+                                    </div>
+                                    
+                                    
+                                   
+                                </div> 
+                                     
+                                     <div class="col-md-2">
+                                         <div class="form-group">
+                                        <h:outputLabel for="cputilidad1_fnd">utilidad 1</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cputilidad1_fnd}"  class="form-control" id="cputilidad1_fnd" placeholder="utilidad 1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpprecio2_fnd">Precio 2</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpprecio2_fnd}"  class="form-control" id="cpprecio2_fnd" placeholder="precio 1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cputilidad2_fnd">utilidad 2</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cputilidad2_fnd}"  class="form-control" id="cputilidad2_fnd" placeholder="utilidad 2" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpprecio3_fnd">Precio 3</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpprecio3_fnd}"  class="form-control" id="cpprecio3_fnd" placeholder="precio 3" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cputilidad3_fnd">Utilidad 3</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cputildad3_fnd}"  class="form-control" id="cputilidad3_fnd" placeholder="utilidad 3" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpoem_fnd">OEM</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpoem_fnd}"  class="form-control" id="cpoem_fnd" placeholder="oem" />
+                                    </div>
+                                </div>
+                                     
+                                     <div class="col-md-2">
+                                     <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpservicio_fnd">Servicio</h:outputLabel>
+                                        <p:inputText rendered="false"  value="#{restClientJap.cpservicio_fnd}"  class="form-control" id="cpservicio_fnd" placeholder="servicio" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpsuspendido_fnd">Suspendido</h:outputLabel>
+                                        <p:inputText rendered="false"  value="#{restClientJap.cpsuspendido_fnd}"  class="form-control" id="cpsuspendido_fnd" placeholder="suspendido" />
+                                    </div>
+                                            <div class="form-group">
+                                        <h:outputLabel  rendered="false" for="cpcostoantconimpues_fnd">Costo ant. con impto.</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpcosto_anterior_c_impuesto_fnd}"  class="form-control" id="cpcostoantconimpues_fnd" placeholder="costo ant. con impto." />
+                                    </div>
+                                     
+                                </div>
+                                     
+                                 </p:tab>
+                                 
+                                
+                                
+    </p:tabView>          
+                              
+</div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                               
+                                <p:commandButton value="Limpiar" update="cproducto_fnd,:fnd_producto:tproducto_fnd"       action="#{restClientJap.cancelarProdcuto_fnd()}" id="btncancelarproducto_fnd" class="btn">
+                                   
+                                </p:commandButton>
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </h:body>
+</html>

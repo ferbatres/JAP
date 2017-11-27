@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+     >
+    <h:head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      border-bottom: 2px solid #e91e63;
+      box-shadow: none;
+    }
+    .ui-widget, .ui-widget .ui-widget {
+    font-size: 90%;
+}
+  </style>
+</h:head>
+
+<h:body>
+  <div class="section"></div>
+  <main>
+    <center>
+      
+      <div class="section"></div>
+ <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+<img class="responsive-img" style="width: 200px;" src="LOGO-NUEVO-SISCA_365.png" />
+  <p:growl autoUpdate="true"/>          
+<h:form class="col s12" >
+            
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+
+            <br />
+            <center>
+              <div class='row'>
+                  Su session ha caducado
+                  <p:commandButton ajax="false" value="Inicio" class="col s12 btn btn-large waves-effect indigo" />
+               
+              </div>
+            </center>
+          </h:form>
+        </div>
+      </div>
+     
+    </center>
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+   <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+  
+  
+</h:body>
+
+</html>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+    <link href="dist/css/AdminLTE.css" rel="stylesheet" type="text/css"/>
+    <link href="dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../plugins/fastclick/fastclick.js"></script>
+    </h:head>
+    <h:body class="hold-transition login-page">
+        
+<div class="login-box">
+    <p:outputPanel rendered="#{ (param['securityStatus'] eq 'authError' ?true:false) }">
+        <div class="alert alert-danger alert-dismissible">
+        <center>Usuario o Contraseña Invalidos..!!</center>
+                
+    </div>
+        </p:outputPanel>
+  <div class="login-logo">
+      
+    <a href="#"><b>Admin</b>JAP</a>
+  </div>
+    
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p styleClass="login-box-msg"></p>
+    <h:form id="loginForm" >
+        
+        <p:growl autoUpdate="true" />
+      <div class="form-group has-feedback">
+          <p:inputText id="j_username"  value="#{restClientJapSeguridad.userjap}"  styleClass="form-control" placeholder="Usuario"/>
+        <span class="glyphicon glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+          <p:password id="j_password" value="#{restClientJapSeguridad.passjap}" styleClass="form-control" placeholder="Contraseña"/>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+        <div class="form-group has-feedback">
+        
+            <p:selectOneMenu  value="#{restClientJapSeguridad.selectedIdEmpresa}" style="width:100%" id="estadocategoria" >
+                                        <f:selectItem itemLabel="Seleccione Empresa" itemValue="" />
+                                        <f:selectItems value="#{restClientJapSeguridad.cempresaList}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+
+                                    </p:selectOneMenu>
+         </div>
+      <div class="row">
+        <div class="col-xs-8">
+         </div>
+          <p:commandLink action="#{restClientJapSeguridad.loginJap()}"  ajax="false" styleClass="btn btn-primary" value="Ingresar" />      
+         
+      </div>
+    </h:form>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+</h:body>
+</html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="maincontent">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-primary">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <h:form id="formProductoBusquedafacturacion">
+                                            <h3><h:outputText value="Lista de Productos"/></h3>
+                                            <p:dataTable var="articulo"  class="table table-bordered table-hover" id="tproducto_fnd_facturacion" selection="#{facturacionMBean.selectedList}" value="#{facturacionMBean.articuloList()}" rows="15"
+                                                         paginator="true"  widgetVar="articuloTable"  selectionMode="multiple" rowKey="#{articulo.id}"  filteredValue="#{facturacionMBean.filteredList}"
+                                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="25,50">
+                                                <f:facet name="header">
+                                                    <p:outputPanel>
+                                                        <h:outputText value="Buscar en todos los campos:" />
+                                                        <p:inputText id="globalFilter" onkeyup="PF('articuloTable').filter()" style="width:150px" placeholder="palabra a buscar"/>
+                                                    </p:outputPanel>
+                                                </f:facet>
+
+                                                <p:column filterBy="#{articulo.id}" filterMatchMode="contains" width="70" headerText="ID">
+                                                    <h:outputText value="#{articulo.id}" />
+                                                </p:column>
+
+                                                <p:column filterBy="#{articulo.codigo}" filterMatchMode="contains" width="70" headerText="Codigo">
+                                                    <h:outputText value="#{articulo.codigo}" />
+                                                </p:column>
+
+                                                <p:column filterBy="#{articulo.descripcion}" filterMatchMode="contains" headerText="Producto">
+                                                    <h:outputText value="#{articulo.descripcion}" />
+                                                </p:column>
+
+                                                <p:column filterBy="#{articulo.marca}" filterMatchMode="contains" headerText="Marca">
+                                                    <h:outputText value="#{articulo.marca}" />
+                                                </p:column>
+
+                                                <p:column filterBy="#{articulo.modelo}" filterMatchMode="contains" headerText="Modelo">
+                                                    <h:outputText value="#{articulo.modelo}" />
+                                                </p:column>
+
+                                                <p:column filterBy="#{articulo.precio}" filterMatchMode="contains" headerText="Precio">
+                                                    <h:outputText value="#{articulo.precio}" />
+                                                </p:column>
+
+                                                <p:column headerText="Disponible">
+                                                    <h:outputText value="#{articulo.stock}" />
+                                                </p:column>
+                                                <p:column filterBy="#{articulo.sucursal}" filterMatchMode="contains"  headerText="Sucursal">
+                                                    <h:outputText value="#{articulo.sucursal}" />
+                                                </p:column>
+                                                <f:facet name="footer">
+                                                    <p:commandButton action = "#{facturacionMBean.agregar()}" update=":formProductoresultado:tarticuloresult" icon="ui-icon-plus" value="Agregar"/>
+                                                </f:facet>
+                                            </p:dataTable>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-10">
+                        <div class="box box-primary">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <f:view>      
+                                        
+                                        <h:form id="formProductoresultado">
+                                            <h3><h:outputText value="Productos seleccionados"/></h3>
+                                            <p:remoteCommand name="refreshFooter" update=":formProductoresultado:tarticuloresult"/>
+                                            <p:dataTable var="producto" class="table table-bordered table-hover" id="tarticuloresult" value="#{facturacionMBean.resultList}"
+                                                         editable = "true" rows="25" rowKey="#{producto.id}">
+
+                                                <p:ajax event="rowEdit" partialSubmit="true" listener="#{facturacionMBean.onRowEdit}" process=":formProductoresultado:tarticuloresult" update=":formProductoresultado:tarticuloresult" oncomplete="refreshFooter()"/>
+                                                <p:ajax event="rowEditCancel" partialSubmit="true" listener="#{facturacionMBean.onRowCancel}" process=":formProductoresultado:tarticuloresult" update=":formProductoresultado:tarticuloresult" oncomplete="refreshFooter()"/>
+
+
+                                                <p:column headerText="#">
+                                                    <h:outputText value="#{producto.id}" />
+                                                </p:column>
+
+                                                <p:column headerText="Producto">
+                                                    <h:outputText value="#{producto.codigo}" />
+                                                </p:column>
+
+                                                <p:column headerText="Descripcion">
+                                                    <h:outputText value="#{producto.descripcion}" />
+                                                </p:column>
+
+
+                                                <p:column headerText="Cantidad">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.cantidad}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="cantidadInput" value="#{producto.cantidad}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column headerText="Precio">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.precio}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="preciodInput" value="#{producto.precio}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column style="width:32px">
+                                                    <p:rowEditor />
+                                                </p:column>
+
+                                                <p:column style="width:42px">
+                                                    <p:commandButton actionListener="#{facturacionMBean.remover(producto)}" update="formProductoresultado" icon="ui-icon-close" title="Quitar"/>
+                                                </p:column>
+
+
+                                                <f:facet name="footer">
+                                                    <h:outputText value="Total Precio: " />
+                                                    <h:outputText id="totalPrecio1" value="#{facturacionMBean.totalPrecio}">
+                                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                                    </h:outputText>
+                                                    <h:outputText value="    Cantidad: " />
+                                                    <h:outputText id="totalCantidad1" value="#{facturacionMBean.totalCantidad}"/> 
+
+                                                </f:facet>                                                
+                                            </p:dataTable>
+                                            <p:commandButton action="#{facturacionMBean.trasladar()}" oncomplete="PF('dialoproductoSearch').hide()" update=":formfacturaoe:tfactura" icon="ui-icon-disk" value="Ok"/>
+                                        </h:form>
+                                    </f:view>    
+                                </div>    
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </h:body>
+</html>

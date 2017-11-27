@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="maincontent">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h:form id="formcliente">
+                                    <p:dataTable var="car" class="table table-bordered table-hover" id="tcliente" selection="#{restClientJap.selectedClienteDTO}" value="#{restClientJap.ctipoClienteList}" rows="5"
+                                                 paginator="true"  selectionMode="single" rowKey="#{car.id}"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:ajax event="rowSelect"  update="ccliente" listener="#{restClientJap.selectedRowCliente()}"  />
+
+                                        <p:column sortBy="#{car.id}" width="50" headerText="ID">
+                                            <h:outputText value="#{car.id}" />
+                                        </p:column>
+
+                                        <p:column headerText="Nombre">
+                                            <h:outputText value="#{car.nombre}" />
+                                        </p:column>
+
+                                        <p:column headerText="Direccion">
+                                            <h:outputText value="#{car.direccion}" />
+                                        </p:column>
+                                         <p:column headerText="Departamento">
+                                             <h:outputText value="#{car.descripcionDepto}" />
+                                        </p:column>
+                                         <p:column headerText="Municipio">
+                                             <h:outputText value="#{car.descripcionMunicipio}" />
+                                        </p:column>
+                                         <p:column headerText="Ciudad">
+                                             <h:outputText value="#{car.descripcionCiudad}" />
+                                        </p:column>
+                                         <p:column headerText="NIT">
+                                             <h:outputText value="#{car.nit}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="box box-primary">
+                        <h:form id="ccliente" >
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h:outputLabel for="idcliente">Id Cliente</h:outputLabel>
+                                        <p:inputText disabled="true" value="#{restClientJap.cclienteId}"  class="form-control" id="idcliente" placeholder="ID" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="descripcioncliente">Nombre de Cliente</h:outputLabel>
+                                        <p:inputText maxlength="100" value="#{restClientJap.cclientenombre}" class="form-control" id="descripcioncliente" placeholder="nombre de cliente"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="direccioncliente">Direccion de Cliente</h:outputLabel>
+                                        <p:inputText maxlength="100" value="#{restClientJap.cclientedireccion}" class="form-control" id="direccioncliente" placeholder="direccion de cliente"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h:outputLabel for="clientedepto">Departamento</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cclienteidDepto}" style="width:100%" id="clientedepto" >
+                                            <p:ajax listener="#{restClientJap.loadMunicpioByIdDeptoCliente()}" update="clientemunicipio" />
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                            <f:selectItems value="#{restClientJap.selectedClienteDeptoCbx}" var="dp" itemLabel="#{dp.descripcion}" itemValue="#{dp.id}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="clientemunicipio">Municipio</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cclienteidMunicipio}" style="width:100%" id="clientemunicipio" >
+                                            <p:ajax listener="#{restClientJap.loadClienteCiudad()}" update="clienteciudad" />
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                            <f:selectItems value="#{restClientJap.selectedClienteDeptoMunicipioCbx}" var="dp" itemLabel="#{dp.descripcion}" itemValue="#{dp.id}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                      <div class="form-group">
+                                        <h:outputLabel for="clientegiro">Giro</h:outputLabel>
+                                        <p:inputText value="#{restClientJap.cclienteGiro}"  class="form-control" id="clientegiro" placeholder="Giro" />
+                                    </div>
+
+                                </div>
+                                
+                                
+                                <div class="col-md-6">
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel for="clienteciudad">Ciudad</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cclienteidCiudad}" style="width:100%" id="clienteciudad" >
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                            <f:selectItems value="#{restClientJap.selectedClienteCiudadCbx}" var="cciu" itemLabel="#{cciu.descripcion}" itemValue="#{cciu.id}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel for="clieteregistrofiscal">Registro Fiscal</h:outputLabel>
+                                        <p:inputText value="#{restClientJap.cclienteregistroFiscal}"  class="form-control" id="clieteregistrofiscal" placeholder="Registro fiscal" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="clientenit">NIT</h:outputLabel>
+                                        <p:inputMask mask="9999-999999-999-9" value="#{restClientJap.cclientenit}"  class="form-control" id="clientenit" placeholder="NIT" />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <h:outputLabel for="clienteemail">Email</h:outputLabel>
+                                        <p:inputText value="#{restClientJap.cclienteemail}"  class="form-control" id="clienteemail" placeholder="email" />
+                                    </div>
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="clientetel1">Telefono 1</h:outputLabel>
+                                        <p:inputText value="#{restClientJap.cclientetelefono1}"  class="form-control" id="clientetel1" placeholder="Telefono 1" />
+                                    </div>
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="clientetel2">Telefono 2</h:outputLabel>
+                                        <p:inputText value="#{restClientJap.cclientetelefono2}"  class="form-control" id="clientetel2" placeholder="Telefono 2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <p:commandButton value="Guardar"   update="clientegiro,clieteregistrofiscal,clienteciudad,clientenit,clienteemail,clientetel1,clientetel2,clientedepto,clientemunicipio,formcliente:tcliente,idcliente,direccioncliente,descripcioncliente,btneliminarcliente" action="#{restClientJap.SCtipoCliente()}" id="btnsavecliente" class="btn" />
+                                <p:commandButton value="Eliminar"  disabled="#{restClientJap.cclienteEdit}" update="clientegiro,clieteregistrofiscal,clienteciudad,clientenit,clienteemail,clientetel1,clientetel2,clientedepto,clientemunicipio,formcliente:tcliente,idcliente,direccioncliente,descripcioncliente,btneliminarcliente" id="btneliminarcliente" action="#{restClientJap.DCtipoCliente()}" class="btn" />
+                                <p:commandButton value="Cancelar" process="@this" update="clientegiro,clieteregistrofiscal,clienteciudad,clientenit,clienteemail,clientetel1,clientetel2,clientedepto,clientemunicipio,formcliente:tcliente,idcliente,direccioncliente,descripcioncliente,btneliminarcliente"    action="#{restClientJap.cancelarCliente()}" id="btncancelarcliente" class="btn">
+                                    <p:resetInput target="@form" ></p:resetInput>
+                                </p:commandButton>
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </h:body>
+</html>

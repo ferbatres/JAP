@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">            
+            <div id="maincontent">
+                <div class="row">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h:form id="formdocumentosearch" class="form-inline" style="margin-top:0">
+                                <h3>Filtros Documentos</h3>
+                                <div class="ui-g ui-fluid">
+                                    <div class="form-group">
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup">
+                                                <p:inputText placeholder="Correlativo" value="#{facturacionMBean.documentoFiltrar.correlativo}" />      
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4">
+                                            <p:selectOneMenu  value="#{facturacionMBean.selFPago}" style="width:100%" id="formapago" >
+                                                <p:ajax event="change" update="@this"/>
+                                                <f:selectItem itemLabel="Forma de Pago" itemValue=""/>
+                                                <f:selectItems value="#{facturacionMBean.listFpago}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4">
+                                            <p:selectOneMenu  value="#{facturacionMBean.selTDoc}" style="width:100%" id="tipodocumento" >
+                                                <p:ajax event="change" update="@this"/>
+                                                <f:selectItem itemLabel="Tipo de Documento" itemValue=""/>
+                                                <f:selectItems value="#{facturacionMBean.listTdoc}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup">
+                                                <span class="ui-inputgroup-addon"/>
+                                                <p:inputText placeholder="Cliente" value="#{facturacionMBean.documentoFiltrar.idCliente}" />
+                                            </div>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-4">
+                                            <p:selectOneMenu  value="#{facturacionMBean.selVend}" style="width:100%" id="vendedor" >
+                                                <p:ajax event="change" update="@this"/>
+                                                <f:selectItem itemLabel="Vendedor" itemValue=""/>
+                                                <f:selectItems value="#{facturacionMBean.listVend}" var="c" itemLabel="#{c.nombre}" itemValue="#{c.id}"/>
+                                            </p:selectOneMenu>
+                                        </div>    
+                                        <div class="ui-g-12 ui-md-4">
+                                            <p:selectOneMenu  value="#{facturacionMBean.selSuc}" style="width:100%" id="sucursal" >
+                                                <p:ajax event="change" update="@this"/>
+                                                <f:selectItem itemLabel="Sucursal" itemValue=""/>
+                                                <f:selectItems value="#{facturacionMBean.listSuc}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup">
+                                                <span class="ui-inputgroup-addon"/>
+                                                <p:calendar id="desde" value="#{facturacionMBean.desde}" placeholder="Desde" pattern="dd/MM/yyyy">
+                                                </p:calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="ui-g-12 ui-md-4">
+                                            <div class="ui-inputgroup">
+                                                <span class="ui-inputgroup-addon"/>
+                                                <p:calendar id="hasta" value="#{facturacionMBean.hasta}" placeholder="Hasta" pattern="dd/MM/yyyy">
+                                                </p:calendar>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <p:toolbar>
+                                    <f:facet name="right">
+                                        <p:commandButton action="#{facturacionMBean.documentoList()}" icon="ui-icon-search" value="Buscar" update=":formdocumento"/>
+                                    </f:facet>
+                                </p:toolbar>
+                            </h:form>
+                        </div>
+                        <div class="box-body">
+                                <h:form id="formdocumento">
+                                    <p:dataTable var="documento" value="#{facturacionMBean.listDocumento}" class="table table-bordered table-hover" id="tdocumento_fnd" rows="5"
+                                                 paginator="true" widgetVar="carsTable"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+
+                                        <p:column headerText="Fecha">
+                                            <h:outputText value="#{documento.fecha}" />
+                                        </p:column>
+
+                                        <p:column headerText="Tipo de Documento">
+                                            <h:outputText value="#{documento.tipoDocumento}" />
+                                        </p:column>
+
+                                        <p:column headerText="Correlativo">
+                                            <h:outputText value="#{documento.correlativo}" />
+                                        </p:column>
+
+                                        <p:column headerText="Cliente">
+                                            <h:outputText value="#{documento.cliente}" />
+                                        </p:column>
+
+                                        <p:column headerText="Total">
+                                            <h:outputText value="#{documento.total}" />
+                                        </p:column>
+
+                                        <p:column headerText="Forma de Pago">
+                                            <h:outputText value="#{documento.formaPago}" />
+                                        </p:column>
+
+                                        <p:column headerText="Sucursal">
+                                            <h:outputText value="#{documento.sucursal}" />
+                                        </p:column>
+
+                                        <p:column headerText="Vendedor">
+                                            <h:outputText value="#{documento.vendedor}" />
+                                        </p:column>
+
+                                        <p:column headerText="Estado">
+                                            <h:outputText value="#{documento.estado}" />
+                                        </p:column>
+
+                                    </p:dataTable>
+                                    <p:toolbar>
+                                        <f:facet name="right">
+                                            <p:commandButton action="#{facturacionMBean.descartar()}" icon="ui-icon-notice" value="Descartar"/>
+                                            <span class="ui-separator">
+                                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                            </span>
+                                            <p:commandButton action="#{facturacionMBean.anular()}" icon="ui-icon-trash" value="Anular"/>
+                                            <span class="ui-separator">
+                                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                            </span>
+                                            <p:commandButton action="#{facturacionMBean.devolver()}" icon="ui-icon-copy" value="Devolucion"/>
+                                        </f:facet>
+                                    </p:toolbar>
+                                </h:form>
+                        </div>
+                        <h:form id="documento_fnd" >
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div class="box-body">
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </h:body>
+</html>

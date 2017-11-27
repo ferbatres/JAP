@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+             .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="maincontent">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <h:form id="formdp">
+                                    <p:dataTable var="car" class="table table-bordered table-hover" id="tdp" selection="#{restClientJap.selectedDpDTO}" value="#{restClientJap.ctipoDpList}" rows="5"
+                                                 paginator="true"  selectionMode="single" rowKey="#{car.id}"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:ajax event="rowSelect"  update="cdp" listener="#{restClientJap.selectedRowDp()}"  />
+
+                                        <p:column sortBy="#{car.id}" headerText="ID">
+                                            <h:outputText value="#{car.id}" />
+                                        </p:column>
+
+                                        <p:column headerText="Descripcion">
+                                            <h:outputText value="#{car.descripcion}" />
+                                        </p:column>
+
+                                        <p:column headerText="Status">
+                                            <h:outputText value="#{car.status}" />
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="box box-primary">
+                        <h:form id="cdp" >
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                           
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <h:outputLabel for="iddp">Id Documento Proveedor</h:outputLabel>
+                                    <p:inputText disabled="true" value="#{restClientJap.cdpId}"  class="form-control" id="iddp" placeholder="ID" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="descripciondp">Descripcion de Documento Proveedor</h:outputLabel>
+                                    <p:inputText maxlength="100" value="#{restClientJap.cdpDescripcion}" class="form-control" id="descripciondp" placeholder="descripcion del documento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="estadodp">Estado</h:outputLabel>
+                                    <p:selectOneMenu  value="#{restClientJap.cdpStatus}" style="width:100%" id="estadodp" >
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItem itemLabel="Activo" itemValue="A" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="I" />
+
+                                    </p:selectOneMenu>
+                                </div>
+
+
+                            </div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <p:commandButton value="Guardar"   update="formdp:tdp,iddp,estadodp,descripciondp,btneliminardp" action="#{restClientJap.SCtipoDp()}" id="btnsavedp" class="btn" />
+                                <p:commandButton value="Eliminar"  disabled="#{restClientJap.cdpEdit}" update="formdp:tdp,iddp,estadodp,descripciondp,btneliminardp" id="btneliminardp" action="#{restClientJap.DCtipoDp()}" class="btn" />
+                                <p:commandButton value="Cancelar" process="@this" update="formdp:tdp,iddp,estadodp,descripciondp,btneliminardp"    action="#{restClientJap.cancelarDp()}" id="btncancelardp" class="btn">
+                                    <p:resetInput target="@form" ></p:resetInput>
+                                </p:commandButton>
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </h:body>
+</html>

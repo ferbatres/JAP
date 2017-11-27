@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="maincontent">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+                                
+                                <h:form id="formproducto">
+                                    <p:dataTable var="car"  class="table table-bordered table-hover" id="tproducto" selection="#{restClientJap.selectedProductoDTO}" value="#{restClientJap.CProductoList}" rows="5"
+                                                 paginator="true"  selectionMode="single" rowKey="#{car.id}"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:ajax event="rowSelect"  update="cproducto" listener="#{restClientJap.selectedRowProducto()}"  />
+
+                                        <p:column width="70" headerText="codigo">
+                                            <h:outputText value="#{car.codigo}" />
+                                        </p:column>
+
+                                        <p:column headerText="Descripcion">
+                                            <h:outputText value="#{car.descripcion}" />
+                                        </p:column>
+                                        
+                                         <p:column headerText="Fecha Recepcion">
+                                             <h:outputText value="#{car.fecha_recepcion}" />
+                                        </p:column>
+                                        <p:column headerText="Stock">
+                                            <h:outputText value="#{car.stock}" />
+                                        </p:column>
+                                        <p:column headerText="Stock Minimo">
+                                            <h:outputText value="#{car.stock_minimo}" />
+                                        </p:column>
+                                        
+                                         <p:column headerText="Stock Maximo">
+                                             <h:outputText value="#{car.stock_maximo}" />
+                                        </p:column>
+
+                                       
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="box box-primary">
+                        <h:form id="cproducto" >
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                              <div class="box-body">
+                                  <p:tabView  >
+        <p:tab title="Detalle de Info.">
+            <div class="col-md-3">
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcoigo">Codigo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.codigo}"  class="form-control" id="cpcoigo" placeholder="codigo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpfecharecepcion">Fecha Recepcion</h:outputLabel>
+                                        <p:calendar pattern="dd/MM/yyyy" showOn="button" value="#{restClientJap.cpfecha_recepcion}"   id="cpfecharecepcion" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="idproducto">Id Cliente</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpid}"  class="form-control" id="idproducto" placeholder="ID" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpdescripcion">Descripcion</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpdescripcion}"  class="form-control" id="cpdescripcion" placeholder="descripcion" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpmarca">Marca</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_marca}" style="width:100%" id="cpmarca" >
+                                            <p:ajax listener="#{restClientJap.loadCtipoModeloBymarca()}" update="cpmodelo" />
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                                      <f:selectItems var="c" value="#{restClientJap.cpcModeloMarcaListcbx}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpmodelo">Modelo</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_modelo}" style="width:100%" id="cpmodelo" >
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />           
+                                                      <f:selectItems var="c" value="#{restClientJap.cpcModeloListcbx}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    
+
+                                </div>
+ <div class="col-md-2">
+     <div class="form-group">
+                                        <h:outputLabel for="cpcategoria">Categoria</h:outputLabel>
+                                        <p:selectOneMenu  value="#{restClientJap.cpid_categoria}" style="width:100%" id="cpcategoria" >
+                                                      <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                                      <f:selectItems var="c" value="#{restClientJap.cpccategoriaListcbx}" itemLabel="#{c.descripcion}" itemValue="#{c.id}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstock">Stock</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock}"  class="form-control" id="cpstock" placeholder="stock" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstockminimo">Stock Minimo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock_minimo}"  class="form-control" id="cpstockminimo" placeholder="stock minimo" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpstockmaximo">Stock Maximo</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpstock_maximo}"  class="form-control" id="cpstockmaximo" placeholder="stock maximo" />
+                                    </div>
+                                    
+                                    
+                                </div>
+            
+            </p:tab>
+                                 <p:tab  title="Precios y Cosotos">                                     
+                                       <div class="col-md-2">
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpcostocompra">Costo Compra</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_compra}"  class="form-control" id="cpcostocompra" placeholder="costo compra" />
+                                    </div>
+                                     
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcostocontable">Costo Contable</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_contable}"  class="form-control" id="cpcostocontable" placeholder="costo contable" />
+                                    </div>
+                                           <div class="form-group">
+                                        <h:outputLabel for="cpultimoCsinimpto">Ult. Costo sin impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpultimo_costo_s_impuesto}"  class="form-control" id="cpultimoCsinimpto" placeholder="ult. costo sin impto." />
+                                    </div>
+                                            <div class="form-group">
+                                        <h:outputLabel for="cpcostoprosinimpues">Costo prom. sin impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_prom_s_impuesto}"  class="form-control" id="cpcostoprosinimpues" placeholder="costo prom. sin impto." />
+                                    </div>
+                                   
+                                    
+                                </div>
+                                <div class="col-md-2">
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpcostofob">Costo Fob</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_fob}"  class="form-control" id="cpcostofob" placeholder="costo fob" />
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpultimoCcinimpto">Ult. Costo con impto.</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpultimo_costo_c_impuesto}"  class="form-control" id="cpultimoCcinimpto" placeholder="ult. costo con impto." />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpcostoproconimpues">Costo prom. con impto</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpcosto_prom_c_impuesto}"  class="form-control" id="cpcostoproconimpues" placeholder="costo prom. con impto." />
+                                    </div>
+                                    
+                                 
+                                    
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpprecio1">Precio 1</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpprecio1}"  class="form-control" id="cpprecio1" placeholder="precio 1" />
+                                    </div>
+                                    
+                                    
+                                   
+                                </div> 
+                                     
+                                     <div class="col-md-2">
+                                         <div class="form-group">
+                                        <h:outputLabel for="cputilidad1">utilidad 1</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cputilidad1}"  class="form-control" id="cputilidad1" placeholder="utilidad 1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cpprecio2">Precio 2</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpprecio2}"  class="form-control" id="cpprecio2" placeholder="precio 1" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel for="cputilidad2">utilidad 2</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cputilidad2}"  class="form-control" id="cputilidad2" placeholder="utilidad 2" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpprecio3">Precio 3</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpprecio3}"  class="form-control" id="cpprecio3" placeholder="precio 3" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cputilidad3">Utilidad 3</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cputildad3}"  class="form-control" id="cputilidad3" placeholder="utilidad 3" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel for="cpoem">OEM</h:outputLabel>
+                                        <p:inputText  value="#{restClientJap.cpoem}"  class="form-control" id="cpoem" placeholder="oem" />
+                                    </div>
+                                </div>
+                                     
+                                     <div class="col-md-2">
+                                     <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpservicio">Servicio</h:outputLabel>
+                                        <p:inputText rendered="false"  value="#{restClientJap.cpservicio}"  class="form-control" id="cpservicio" placeholder="servicio" />
+                                    </div>
+                                     <div class="form-group">
+                                        <h:outputLabel rendered="false" for="cpsuspendido">Suspendido</h:outputLabel>
+                                        <p:inputText rendered="false"  value="#{restClientJap.cpsuspendido}"  class="form-control" id="cpsuspendido" placeholder="suspendido" />
+                                    </div>
+                                            <div class="form-group">
+                                        <h:outputLabel  rendered="false" for="cpcostoantconimpues">Costo ant. con impto.</h:outputLabel>
+                                        <p:inputText rendered="false" value="#{restClientJap.cpcosto_anterior_c_impuesto}"  class="form-control" id="cpcostoantconimpues" placeholder="costo ant. con impto." />
+                                    </div>
+                                     
+                                </div>
+                                     
+                                 </p:tab>
+                                 
+                                
+                                
+    </p:tabView>          
+                              
+</div>
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+                                <p:commandButton value="Guardar"  update="cproducto,formproducto"   action="#{restClientJap.SCproducto()}" id="btnsaveproducto" class="btn" />
+                                <p:commandButton value="Eliminar" update="cproducto,formproducto"  disabled="#{restClientJap.cprodEdit}"  id="btneliminarproducto" action="#{restClientJap.DCProdcuto()}" class="btn" />
+                                <p:commandButton value="Cancelar" update="cproducto,formproducto"  process="@this"     action="#{restClientJap.cancelarProdcuto()}" id="btncancelarproducto" class="btn">
+                                    <p:resetInput target="@form" ></p:resetInput>
+                                </p:commandButton>
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </h:body>
+</html>

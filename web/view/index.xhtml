@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>JAP Motors</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+        <!-- Bootstrap 3.3.6 -->
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <!-- Theme style -->
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+              page. However, you can choose any other skin. Make sure you
+              apply the skin class to the body tag so the changes take effect.
+        -->
+        <!-- DataTables -->
+      
+        
+        <link href="../dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css"/>
+        
+ <style type="text/css">
+     
+     .ui-dialog-title-dialog{
+               font-size: larger; 
+               color: red;
+     }
+            .ui-dialog-titlebar {
+               font-size: x-large; 
+            }
+        </style>
+    </h:head>
+
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a href="#" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>J</b>AP</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg">JAP</span>
+                    
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar user panel (optional)
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p>Alexander Pierce</p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div> -->
+
+                    <!-- search form (Optional) -->
+
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+<h:form>
+                    <ul class="sidebar-menu">
+    
+       <li class="header"><center>MENU JAP</center></li>
+       
+       <ui:repeat value="#{restClientJapSeguridad.menuprincipal}" var="menu" varStatus="status">
+           <li class="treeview">
+
+               <a href="#">
+                   <i class="fa #{menu.menu_icon}"></i>
+                   <span>#{menu.descripcion}</span>
+                   <span class="pull-right-container">
+                       <i class="fa fa-angle-left pull-right"></i>
+                   </span>
+               </a>
+               <ul class="treeview-menu">
+                   <ui:repeat value="#{restClientJapSeguridad.getOpcionesmenu(menu.id_rol,menu.id)}" var="c" >
+                       <li>                         
+                           <p:commandLink update="#{c.props_update}" onclick="#{c.props_onclick}" actionListener="#{restClientJapSeguridad.action(c.props_actionlistener)}" value="#{c.descripcion}"  >                 
+                           </p:commandLink>
+
+                       </li>
+
+                   </ui:repeat>
+               </ul>
+           </li>
+       </ui:repeat>
+          
+        <li class="treeview">
+           
+          <a href="#">
+            <i class="fa fa-power-off"></i>
+            <span>Cerrar Sesion</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+                <h:form>
+                    <center> <p:commandButton style="background:none!important;border:none;padding:0!important;color:white" action="#{restClientJapSeguridad.logOutJap()}"  ajax="false"  value="Cerrar" />
+                        </center>
+               </h:form>
+                    
+            </li>
+           
+            
+          </ul>
+        </li>
+        
+        
+      </ul>
+ </h:form>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        <!--  Page Header
+                         <small>Optional description</small>
+                        -->
+                    </h1>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    
+                    <h:form id="formTimeOut"  enctype="multipart/form-data" >
+                        <p:idleMonitor onactive="PF('sessionTimeOutDialog').show();" timeout="#{restClientJapSeguridad.logueado!=true?100000000:10800000}"/>
+                  
+                <p:dialog  header="La sesion ha expirado" widgetVar="sessionTimeOutDialog" 
+                          modal="true"  closable="false" width="400" visible="false">
+                    <center>
+                    <p:commandButton action="#{restClientJapSeguridad.logOutJap()}" class="btn" value="Inicio de Sesion"/>
+                    </center>
+                   
+                </p:dialog>
+                    </h:form>
+ 
+                    <div id="maincontent">
+                      
+                         <p:growl id="msg"  autoUpdate="true"/>
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Tipo de vehiculos" widgetVar="dlg1">
+                            <ui:include  src="#{restClientJap.pageCTipoVehiculo}" />
+                        </p:dialog>
+                        
+                        
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Tipo de Documentos" widgetVar="dialoDoc">
+                             <ui:include  src="#{restClientJap.pageCTipoDocumento}" />
+                        </p:dialog>
+                        
+                        
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Tipo de Productos" widgetVar="dialoprod">
+                             <ui:include  src="#{restClientJap.pageCTipoProd}" />
+                        </p:dialog>
+                        
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Tipos de Doc. para el Proveedor" widgetVar="dialodp">
+                              <ui:include  src="#{restClientJap.pageCTipoDp}" />
+                        </p:dialog>
+                        
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Marca" widgetVar="dialomarca">
+                            <ui:include  src="#{restClientJap.pageCTipoMarca}" />
+                        </p:dialog>
+
+                        
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Taller" widgetVar="dialotaller">
+                            <ui:include  src="#{restClientJap.pageCTipoTaller}" />
+                        </p:dialog>
+
+                        
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Empleado" widgetVar="dialoempleado">
+                             <ui:include  src="#{restClientJap.pageCTipoEmpleado}" />
+                        </p:dialog>
+                        
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Estilo" widgetVar="dialoestilo">
+                             <ui:include  src="#{restClientJap.pageCTipoEstilo}" />
+                        </p:dialog>
+                        
+                        
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Forma de Pago" widgetVar="dialofpago">
+                              <ui:include  src="#{restClientJap.pageCTipoFpago}" />
+                        </p:dialog>
+                        
+                        
+                        
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Modelo" widgetVar="dialomodelo">
+                             <ui:include  src="#{restClientJap.pageCTipoModelo}" />
+                        </p:dialog>
+                        
+                        
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Almacen" widgetVar="dialoalmacen">
+                             <ui:include  src="#{restClientJap.pageCTipoAlmacen}" />
+                        </p:dialog>
+                       
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Giro" widgetVar="dialogiro">
+                              <ui:include  src="#{restClientJap.pageCTipoGiro}" />
+                        </p:dialog>
+                        
+                        
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Departamento" widgetVar="dialodepto">
+                              <ui:include  src="#{restClientJap.pageCTipoDepto}" />
+                        </p:dialog>
+                        
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Municipios" widgetVar="dialomunicipio">
+                              <ui:include  src="#{restClientJap.pageCTipoMunicipio}" />
+                        </p:dialog>
+                     
+                             <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Ciudad" widgetVar="dialociudad">
+                                 <ui:include  src="#{restClientJap.pageCTipoCiudad}" />
+                        </p:dialog>
+                        
+                        
+                             <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="1000" height="500" fitViewport="true" header="Cliente" widgetVar="dialocliente">
+                                 <ui:include  src="#{restClientJap.pageCTipoCliente}" />
+                        </p:dialog>
+                         
+                         
+                             <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Opciones de Sistema" widgetVar="dialosopcion">
+                                 <ui:include  src="#{restClientJapSeguridad.pageSopcion}" />
+                        </p:dialog>
+                        
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Roles del Sistema" widgetVar="dialosrol">
+                              <ui:include  src="#{restClientJapSeguridad.pageSrol}" />
+                        </p:dialog>
+                        
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Opciones por Rol" widgetVar="dialosopcionrol">
+                             <ui:include  src="#{restClientJapSeguridad.pageSopcionrol}" />
+                        </p:dialog>
+                        
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Usuarios" widgetVar="dialousuario">
+                              <ui:include  src="#{restClientJapSeguridad.pageSusuario}" />
+                        </p:dialog>
+                         
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Categorias" widgetVar="dialocategoria">
+                              <ui:include  src="#{restClientJap.pageCTipoCategoria}" />
+                        </p:dialog>
+                         
+                         
+                         
+                         
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Roles por Usuario" widgetVar="dialorolesusuario">
+                                <ui:include  src="#{restClientJapSeguridad.pageSrolusuario}" />
+                        </p:dialog>
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="1150" height="500" fitViewport="true" header="Productos" widgetVar="dialoproductos">
+                              <ui:include  src="#{restClientJap.pageProducto}" />
+                        </p:dialog>
+                        
+                         
+                           <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Proveedor" widgetVar="dialoproveedor">
+                               <ui:include  src="#{restClientJap.pageCTipoProveedor}" />
+                        </p:dialog>
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="1150" height="500" fitViewport="true" header="Detalle de Producto." widgetVar="dialodetainfo_fnd">
+                              <ui:include  src="#{restClientJap.pageProducto_fnd}" />
+                        </p:dialog>
+                         
+                         
+                            <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Opciones Principales" widgetVar="dialoopcprincipal">
+                                <ui:include  src="#{restClientJapSeguridad.pageOpcionPrincipal}" />
+                        </p:dialog>
+                        
+                           <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Empresas" widgetVar="dialoempresa">
+                               <ui:include  src="#{restClientJap.pageCTipoCempresa}" />
+                        </p:dialog>
+                         
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Orden de Entrega" widgetVar="dialoordenentrega">
+                              <ui:include  src="#{restClientJap.pageOrdenEntrega}" />
+                        </p:dialog>
+                         
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Crear Factura" widgetVar="dialobuscardoc">
+                              <ui:include  src="#{restClientJap.pageBuscarDoc}" />
+                        </p:dialog>
+                         
+                         <h:form id="fnd_producto">
+                            <p:dialog  modal="true"   width="1200" height="300" fitViewport="true" header="Productos y Precios" widgetVar="prdCost">
+                               
+                       
+                                    <p:dataTable var="car"  class="table table-bordered table-hover" id="tproducto_fnd" selection="#{restClientJap.selectedProductoDTO_fnd}" value="#{restClientJap.CProductoList_fnd}" rows="5"
+                                                 paginator="true" widgetVar="carsTable"  selectionMode="single" rowKey="#{car.id}"  filteredValue="#{restClientJap.CProductoList_fnd_filter}"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:ajax event="rowSelect" oncomplete="PF('prdCost').hide();" update=":cproducto_fnd" listener="#{restClientJap.selectedRowProducto_fnd()}"  />
+
+                                        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Buscar en todos los campos:" />
+                <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="palabra a buscar"/>
+            </p:outputPanel>
+        </f:facet>
+                                        
+                                        <p:column filterBy="#{car.codigo}" filterMatchMode="contains" width="70" headerText="codigo">
+                                            <h:outputText value="#{car.codigo}" />
+                                        </p:column>
+
+                                        <p:column filterBy="#{car.descripcion}" filterMatchMode="contains" headerText="Descripcion">
+                                            <h:outputText value="#{car.descripcion}" />
+                                        </p:column>
+                                        
+                                         <p:column filterBy="#{car.desc_marca}" filterMatchMode="contains" headerText="Descripcion Marca">
+                                             <h:outputText value="#{car.desc_marca}" />
+                                        </p:column>
+                                        
+                                          <p:column filterBy="#{car.desc_modelo}" filterMatchMode="contains" headerText="Descripcion Modelo">
+                                              <h:outputText value="#{car.desc_modelo}" />
+                                        </p:column>
+                                        
+                                         <p:column filterBy="#{car.desc_categoria}" filterMatchMode="contains" headerText="Descripcion Categoria">
+                                             <h:outputText value="#{car.desc_categoria}" />
+                                        </p:column>
+                                        
+                                         <p:column headerText="Fecha Recepcion">
+                                             <h:outputText value="#{car.fecha_recepcion}" />
+                                        </p:column>
+                                        <p:column headerText="Stock">
+                                            <h:outputText value="#{car.stock}" />
+                                        </p:column>
+                                        <p:column headerText="Stock Minimo">
+                                            <h:outputText value="#{car.stock_minimo}" />
+                                        </p:column>
+                                        
+                                         <p:column headerText="Stock Maximo">
+                                             <h:outputText value="#{car.stock_maximo}" />
+                                        </p:column>
+
+                                       
+                                    </p:dataTable>
+                                            </p:dialog>
+                         
+                        </h:form>
+                        
+                                
+                        
+                    </div>
+
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    Anything you want
+                </div>
+                <!-- Default to the left -->
+                <strong>Copyright &copy; 2017 <a href="#">Grupo Infinity S.A de C.V</a>.</strong> All rights reserved.
+            </footer>
+
+
+            <!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed
+                 immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <!-- ./wrapper -->
+
+        <!-- REQUIRED JS SCRIPTS -->
+
+        <!-- jQuery 2.2.3 -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+        <!-- Bootstrap 3.3.6 -->
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../dist/js/app.min.js"></script>
+
+
+
+
+    </body>
+</html>

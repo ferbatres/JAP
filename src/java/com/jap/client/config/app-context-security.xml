@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context" 
+             xmlns:lang="http://www.springframework.org/schema/lang"	
+             xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    	http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security-4.1.xsd 
+      	http://www.springframework.org/schema/context 
+      	http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	
+	
+    <!-- PARTE DE SEGURIDAD -->
+	
+    <security:http auto-config="true" security="none" pattern="/faces/login.xhtml*" />
+	
+    <security:http auto-config="true" security="none" pattern="/faces/javax.faces.resource/**" />
+	
+    <security:http auto-config="true" >
+        <security:intercept-url pattern="/faces/view/**" access="hasRole('ROLE_AUTHENTICATION')" />
+        <security:intercept-url pattern="/faces/seguridad/**" access="hasRole('ROLE_AUTHENTICATION')" />
+        <security:intercept-url pattern="/faces/catalogos/**" access="hasRole('ROLE_AUTHENTICATION')" />
+        <security:intercept-url pattern="/faces/facturacion/**" access="hasRole('ROLE_AUTHENTICATION')" />
+        <security:form-login login-page="/faces/login.xhtml" 
+                                     default-target-url="/faces/view/index.xhtml"
+                                     login-processing-url="/j_spring_security_check"
+                                     authentication-failure-url="/faces/login.xhtml?securityStatus=authError"
+                                     username-parameter="loginForm:j_username"
+                                     password-parameter="loginForm:j_password" /> 
+        <security:logout invalidate-session="true" logout-success-url="/faces/login.xhtml?securityStatus=logout" logout-url="/logout" />
+        <security:session-management invalid-session-url="/faces/login.xhtml?securityStatus=invalidSession"></security:session-management>
+        <security:anonymous enabled="true"/>
+        <csrf disabled="true" />
+    </security:http>
+	
+	
+    <security:authentication-manager>
+        <security:authentication-provider ref="japAuthProvider"/>	 	
+    </security:authentication-manager>
+	
+    <beans:bean id="japAuthProvider" class="com.jap.client.sec.AuthenticationProviderJap">
+    </beans:bean>	
+		
+	
+</beans:beans>

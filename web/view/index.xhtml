@@ -318,6 +318,21 @@
                               <ui:include  src="#{restClientJap.pageBuscarDoc}" />
                         </p:dialog>
                          
+                         
+                         <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Consumidor Final" widgetVar="dialogconsumidor">
+                             <ui:include  src="#{restClientJap.pageConsumidorFinal}" />
+                        </p:dialog>
+                         
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Devolucion Consumidor Final" widgetVar="dialogdevoconsumidor">
+                             <ui:include  src="#{restClientJap.pagedevoConsumidorFinal}" />
+                        </p:dialog>
+                         
+                         
+                           <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Credito Fiscal" widgetVar="dialogcfiscal">
+                               <ui:include  src="#{restClientJap.pageCreditoFiscal}" />
+                        </p:dialog>
+                         
                          <h:form id="fnd_producto">
                             <p:dialog  modal="true"   width="1200" height="300" fitViewport="true" header="Productos y Precios" widgetVar="prdCost">
                                

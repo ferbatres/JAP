@@ -31,13 +31,13 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "facturacionMBean")
+@ManagedBean(name = "facturacioncfiscalMBean")
 @ViewScoped
-public class PFacturacionMBean extends ClientUtils implements Serializable {
+public class PFacturacionCFiscallMBean extends ClientUtils implements Serializable {
 
     
-     FacesContext facesContext = FacesContext.getCurrentInstance();
-    CclienteMBean bean = (CclienteMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clienteMBean");
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    CclienteCfiscalMBean bean = (CclienteCfiscalMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientecfiscalMBean");
 
 
     private Cproducto producto;
@@ -64,6 +64,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
     private String globalIdDocumento;
     private final String ordenEntrega = "1";
     private final String consumidorFinal = "2";
+    private final String creditoFiscal="4";
     private final String borrador = "BORRADOR";
     private final String activo = "ACTIVO";
 
@@ -78,7 +79,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
     private Date desde;
     private Date hasta;
 
-    public PFacturacionMBean() {
+    public PFacturacionCFiscallMBean() {
         resultList = new ArrayList<>();
         listDocumento = new ArrayList<>();
         documentoFiltrar = new VFacturas();
@@ -104,12 +105,12 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
         facturaList = new ArrayList<>();
         selectedList = new ArrayList<>();
         resultList = new ArrayList<>();
-        this.setTotalPrecio(0.00);
-        this.setTotalCantidad(0.00);
         loadFormaPago();
         this.setTotalPrecioArticulo(0.00);
         this.setSelectedidpago("");
         this.setTotalCantidadArticulo(0.00);
+        this.setTotalPrecio(0.00);
+        this.setTotalCantidad(0.00);
         setEmpleadoCheck(getEmpleado().getNombre());
         setSucursalCheck(getEmpleado().getIdSucursal());
     }
@@ -671,6 +672,10 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
 
     public void setDocumento(VFacturas documento) {
         this.documento = documento;
+    }
+
+    public String getCreditoFiscal() {
+        return creditoFiscal;
     }
 
     public List<VFacturas> getListDocumento() {

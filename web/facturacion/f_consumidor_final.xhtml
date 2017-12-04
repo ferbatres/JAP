@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="consufimaincontent">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <div class="box">
+                            <div class="box-body">
+                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearch" height="300" width = "800">                                    
+                                    <ui:include  src="#{restClientJap.pageconsufiCTipoClienteSearch}" />
+                                </p:dialog>
+                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearch" height="500" width = "900">                                    
+                                    <ui:include  src="#{restClientJap.pageconsufiProductoSearch}" />
+                                </p:dialog>
+                                                                   
+                                    <h:form id="consufiformclienteoe">
+                                        <h3><h:outputText value="Datos del Cliente"/></h3>
+                                        <div class = "row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Cliente"/>
+                                                    <h:inputText id="consuficliente" value="#{clienteconsufiMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
+                                                    <p:commandButton action ="#{clienteconsufiMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearch').show()">
+                                                    </p:commandButton>
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Direccion"/>
+                                                    <h:inputText id="consufidireccion" value="#{clienteconsufiMBean.clienteOE.direccion}" title="Direccion" class = "form-control" readonly="true"/>                                                    
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Ciudad"/>
+                                                    <h:inputText id="consuficiudad" value="#{clienteconsufiMBean.clienteOE.descripcionCiudad}" title="Ciudad" class = "form-control" readonly="true"/> 
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Departamento"/>
+                                                    <h:inputText id="consufidepartamento" value="#{clienteconsufiMBean.clienteOE.descripcionDepto}" title="Departamento" class = "form-control" readonly="true"/>                                                    
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="NIT"/>
+                                                    <h:inputText id="consufinit" value="#{clienteconsufiMBean.clienteOE.nit}" title="NIT" class = "form-control" readonly="true"/>                                           
+                                                </div>    
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Correlativo"/>
+                                                    <h:inputText id="consuficorrelativo" value="#{facturacionconsufinalMBean.getFacturacionId()}" title="Correlativo" class = "form-control" readonly="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Forma de Pago"/>
+
+                                                    <p:selectOneMenu  value="#{facturacionconsufinalMBean.selectedidpago}" style="width:100%" id="consufiformapago" >
+                                                        <p:ajax event="change" update="@this"/>
+                                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+
+                                                        <f:selectItems value="#{facturacionconsufinalMBean.listFpago}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Vendedor"/>
+                                                    <h:inputText id="consufivendedor" value="#{facturacionconsufinalMBean.empleadoCheck}" title="Vendedor" class = "form-control" required="true" readonly="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Sucursal"/>
+                                                    <h:inputText id="consufisucursal" value="#{facturacionconsufinalMBean.sucursalCheck}" title="Sucursal" class = "form-control" required="true" readonly="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10">
+                        <div class="box box-primary">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <f:view>                                    
+                                        <h:form id="consufiformfacturaoe">
+                                            <h3><h:outputText value="Datos de la factura"/></h3>
+                                            <p:commandButton value="Articulos" action="#{facturacionconsufinalMBean.cleanArticulos()}" update=":consufiformProductoBusquedafacturacion:consufitproducto_fnd_facturacion,:consufiformProductoresultado:consufitarticuloresult" onclick="PF('dialoproductoSearch').show()" />
+
+                                            <p:remoteCommand name="refreshHeaderArticulo" update=":consufiformclienteoe,:consufiformfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
+                                            <p:remoteCommand name="refreshFooterArticulo" update=":consufiformfacturaoe:consufitfactura"/>
+                                            <p:dataTable var="producto" class="table table-bordered table-hover" id="consufitfactura" value="#{facturacionconsufinalMBean.facturaList}"
+                                                         editable = "true" rows="25" rowKey="#{producto.id}">
+
+                                                <p:ajax event="rowEdit" partialSubmit="true" listener="#{facturacionconsufinalMBean.onRowEditArticulo}" process=":consufiformfacturaoe:consufitfactura" update=":consufiformfacturaoe:consufitfactura,consufiformProductoresultado:consufitarticuloresult" oncomplete="refreshFooterArticulo()"/>
+                                                <p:ajax event="rowEditCancel" partialSubmit="true" listener="#{facturacionconsufinalMBean.onRowCancelArticulo}" process=":consufiformfacturaoe:consufitfactura" update=":consufiformfacturaoe:consufitfactura,consufiformProductoresultado:consufitarticuloresult" oncomplete="refreshFooterArticulo()"/>
+
+
+                                                <p:column headerText="#">
+                                                    <h:outputText value="#{producto.id}" />
+                                                </p:column>
+
+                                                <p:column headerText="Producto">
+                                                    <h:outputText value="#{producto.codigo}" />
+                                                </p:column>
+
+                                                <p:column headerText="Descripcion">
+                                                    <h:outputText value="#{producto.descripcion}" />
+                                                </p:column>
+
+
+                                                <p:column headerText="Cantidad">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.cantidad}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="consuficantidadInput" value="#{producto.cantidad}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column headerText="Precio">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.precio}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="consufipreciodInput" value="#{producto.precio}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column style="width:32px">
+                                                    <p:rowEditor />
+                                                </p:column>
+
+                                                <p:column style="width:42px">
+                                                    <p:commandButton actionListener="#{facturacionconsufinalMBean.removerArticulo(producto)}" update="formfacturaoe,formProductoresultado" icon="ui-icon-close" title="Quitar"/>
+                                                </p:column>
+
+
+                                                <f:facet name="footer">
+                                                    <h:outputText value="Total Precio: " />
+                                                    <h:outputText id="consufitotalPrecio1" value="#{facturacionconsufinalMBean.totalPrecioArticulo}">
+                                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                                    </h:outputText>
+                                                    <h:outputText value="    Cantidad: " />
+                                                    <h:outputText id="consufitotalCantidad1" value="#{facturacionconsufinalMBean.totalCantidadArticulo}"/> 
+
+                                                </f:facet>                                                
+                                            </p:dataTable>
+
+                                        </h:form>
+                                        <h:form>
+                                            <p:toolbar>
+                                                <f:facet name="right">
+                                                    <p:commandButton actionListener="#{facturacionconsufinalMBean.guardar(clienteconsufiMBean.clienteOE,facturacionconsufinalMBean.facturaList,restClientJap.empleadoCheck,facturacionconsufinalMBean.consumidorFinal,facturacionconsufinalMBean.borrador)}" icon="ui-icon-document" value="Guardar"
+                                                                     process = "@all" update=":consufiformfacturaoe,:consufiformclienteoe,:consufiformProductoBusquedafacturacion,:consufiformProductoresultado">
+                                                    </p:commandButton>
+                                                    <span class="ui-separator">
+                                                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                                    </span>
+                                                        <p:commandButton action="#{facturacionconsufinalMBean.generar(facturacionconsufinalMBean.facturaList)}" icon="ui-icon-script" value="Generar"  oncomplete="PF('dialoordenentrega').hide()" >
+                                                            <p:resetInput target=":consufiformclienteoe" />
+                                                        </p:commandButton>
+                                                </f:facet>
+                                            </p:toolbar>    
+                                        </h:form>
+
+                                    </f:view>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </h:body>
+</html>

@@ -15,9 +15,9 @@ import org.json.JSONObject;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "clienteMBean")
+@ManagedBean(name = "clienteconsufiMBean")
 @ViewScoped
-public class CclienteMBean extends ClientUtils implements Serializable {
+public class CclienteConsufiMBean extends ClientUtils implements Serializable {
 
     private Ccliente cliente;
     private Ccliente selectedCliente;
@@ -25,7 +25,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     private List<Ccliente> filteredCliente;
     private List<Ccliente> list;
 
-    public CclienteMBean() {
+    public CclienteConsufiMBean() {
         selectedCliente = new Ccliente();
         clienteOE = new Ccliente();
         filteredCliente = new ArrayList<Ccliente>();
@@ -133,12 +133,13 @@ public class CclienteMBean extends ClientUtils implements Serializable {
 
     public void cleanObjects() {
         //System.out.println("entro cleanObjects");
-        this.cliente = new Ccliente();
+        cliente = new Ccliente();
+        //System.out.println(cliente);
         nextIdCliente();
     }
     
     public void cleanClienteForm(){
-        clienteOE = null;
+        clienteOE = new Ccliente();
     }
 
     /*

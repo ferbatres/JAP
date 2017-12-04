@@ -65,7 +65,14 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private String empleadoCheck;
     private String sucursalCheck;
     private String pageCTipoClienteSearch;
+    private String pagecfiscalCTipoClienteSearch;
+    private String pagecfiscalProductoSearch;    
+    private String pageconsufiCTipoClienteSearch;
+    private String pagedevoconsufiCTipoClienteSearch;
     private String pageProductoSearch;
+    private String pageconsufiProductoSearch;
+    private String pagedevoconsufiProductoSearch;
+    
 
     private void loadCtipoVehiculo() {
         String param = "{}";
@@ -124,7 +131,16 @@ public class RestClientJap extends ClientUtils implements Serializable {
         pageOrdenEntrega = "/facturacion/p_orden_entrega.xhtml";
         pageBuscarDoc = "/facturacion/f_orden_entrega.xhtml";
         pageCTipoClienteSearch = "/facturacion/find_cliente.xhtml";
+        pageconsufiCTipoClienteSearch="/facturacion/find_cliente_consumidor.xhtml";
+        pagedevoconsufiCTipoClienteSearch="/facturacion/find_cliente_devoconsumidor.xhtml";
         pageProductoSearch = "/facturacion/find_producto.xhtml";
+        pageconsufiProductoSearch = "/facturacion/find_producto_consumidor.xhtml";
+        pagedevoconsufiProductoSearch = "/facturacion/find_producto_devoconsumidor.xhtml";
+        pageConsumidorFinal = "/facturacion/f_consumidor_final.xhtml";
+        pagedevoConsumidorFinal = "/facturacion/f_consumidor_devofinal.xhtml";
+        pageCreditoFiscal = "/facturacion/f_credito_fiscal.xhtml";
+        pagecfiscalCTipoClienteSearch = "/facturacion/find_cliente_cfiscal.xhtml";
+        pagecfiscalProductoSearch="/facturacion/find_producto_cfiscal.xhtml";;
     }
 
     public void ClearVehiculos() {
@@ -899,6 +915,9 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private List<Cempresa> CtipoCempresaList;
     private String pageCTipoCempresa = "";
     private String pageOrdenEntrega = "";
+    private String pageConsumidorFinal="";
+    private String pagedevoConsumidorFinal="";
+    private String pageCreditoFiscal="";
     private String pageBuscarDoc = "";
 
     private void loadCtipoCempresa() {
@@ -4951,6 +4970,78 @@ public class RestClientJap extends ClientUtils implements Serializable {
 
     public void setPageBuscarDoc(String pageBuscarDoc) {
         this.pageBuscarDoc = pageBuscarDoc;
+    }
+
+    public String getPageConsumidorFinal() {
+        return pageConsumidorFinal;
+    }
+
+    public String getPageconsufiProductoSearch() {
+        return pageconsufiProductoSearch;
+    }
+
+    public void setPageconsufiProductoSearch(String pageconsufiProductoSearch) {
+        this.pageconsufiProductoSearch = pageconsufiProductoSearch;
+    }
+
+    public void setPageConsumidorFinal(String pageConsumidorFinal) {
+        this.pageConsumidorFinal = pageConsumidorFinal;
+    }
+
+    public String getPageconsufiCTipoClienteSearch() {
+        return pageconsufiCTipoClienteSearch;
+    }
+
+    public String getPagedevoconsufiCTipoClienteSearch() {
+        return pagedevoconsufiCTipoClienteSearch;
+    }
+
+    public void setPagedevoconsufiCTipoClienteSearch(String pagedevoconsufiCTipoClienteSearch) {
+        this.pagedevoconsufiCTipoClienteSearch = pagedevoconsufiCTipoClienteSearch;
+    }
+
+    public String getPagedevoconsufiProductoSearch() {
+        return pagedevoconsufiProductoSearch;
+    }
+
+    public void setPagedevoconsufiProductoSearch(String pagedevoconsufiProductoSearch) {
+        this.pagedevoconsufiProductoSearch = pagedevoconsufiProductoSearch;
+    }
+
+    public String getPagedevoConsumidorFinal() {
+        return pagedevoConsumidorFinal;
+    }
+
+    public void setPagedevoConsumidorFinal(String pagedevoConsumidorFinal) {
+        this.pagedevoConsumidorFinal = pagedevoConsumidorFinal;
+    }
+
+    public String getPagecfiscalCTipoClienteSearch() {
+        return pagecfiscalCTipoClienteSearch;
+    }
+
+    public void setPagecfiscalCTipoClienteSearch(String pagecfiscalCTipoClienteSearch) {
+        this.pagecfiscalCTipoClienteSearch = pagecfiscalCTipoClienteSearch;
+    }
+
+    public String getPagecfiscalProductoSearch() {
+        return pagecfiscalProductoSearch;
+    }
+
+    public void setPagecfiscalProductoSearch(String pagecfiscalProductoSearch) {
+        this.pagecfiscalProductoSearch = pagecfiscalProductoSearch;
+    }
+
+    public String getPageCreditoFiscal() {
+        return pageCreditoFiscal;
+    }
+
+    public void setPageCreditoFiscal(String pageCreditoFiscal) {
+        this.pageCreditoFiscal = pageCreditoFiscal;
+    }
+
+    public void setPageconsufiCTipoClienteSearch(String pageconsufiCTipoClienteSearch) {
+        this.pageconsufiCTipoClienteSearch = pageconsufiCTipoClienteSearch;
     }
 
 }

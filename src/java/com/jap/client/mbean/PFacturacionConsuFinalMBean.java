@@ -31,13 +31,13 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "facturacionMBean")
+@ManagedBean(name = "facturacionconsufinalMBean")
 @ViewScoped
-public class PFacturacionMBean extends ClientUtils implements Serializable {
+public class PFacturacionConsuFinalMBean extends ClientUtils implements Serializable {
 
     
-     FacesContext facesContext = FacesContext.getCurrentInstance();
-    CclienteMBean bean = (CclienteMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clienteMBean");
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    CclienteConsufiMBean bean = (CclienteConsufiMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clienteconsufiMBean");
 
 
     private Cproducto producto;
@@ -78,7 +78,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
     private Date desde;
     private Date hasta;
 
-    public PFacturacionMBean() {
+    public PFacturacionConsuFinalMBean() {
         resultList = new ArrayList<>();
         listDocumento = new ArrayList<>();
         documentoFiltrar = new VFacturas();
@@ -104,10 +104,10 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
         facturaList = new ArrayList<>();
         selectedList = new ArrayList<>();
         resultList = new ArrayList<>();
-        this.setTotalPrecio(0.00);
-        this.setTotalCantidad(0.00);
         loadFormaPago();
         this.setTotalPrecioArticulo(0.00);
+        this.setTotalPrecio(0.00);
+        this.setTotalCantidad(0.00);
         this.setSelectedidpago("");
         this.setTotalCantidadArticulo(0.00);
         setEmpleadoCheck(getEmpleado().getNombre());

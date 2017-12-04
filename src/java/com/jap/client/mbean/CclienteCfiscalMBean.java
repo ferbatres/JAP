@@ -15,9 +15,9 @@ import org.json.JSONObject;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "clienteMBean")
+@ManagedBean(name = "clientecfiscalMBean")
 @ViewScoped
-public class CclienteMBean extends ClientUtils implements Serializable {
+public class CclienteCfiscalMBean extends ClientUtils implements Serializable {
 
     private Ccliente cliente;
     private Ccliente selectedCliente;
@@ -25,7 +25,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     private List<Ccliente> filteredCliente;
     private List<Ccliente> list;
 
-    public CclienteMBean() {
+    public CclienteCfiscalMBean() {
         selectedCliente = new Ccliente();
         clienteOE = new Ccliente();
         filteredCliente = new ArrayList<Ccliente>();
@@ -101,7 +101,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     }
 
     public void selectClienteFromDialog() {
-        //System.out.println("entro selectClienteFromDialog");
+        ////System.out.println("entro selectClienteFromDialog");
         this.clienteOE.setId(this.cliente.getId());
         this.clienteOE.setComentarios(this.cliente.getComentarios());
         this.clienteOE.setDireccion(this.cliente.getDireccion());
@@ -132,13 +132,14 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     }
 
     public void cleanObjects() {
-        //System.out.println("entro cleanObjects");
-        this.cliente = new Ccliente();
+        ////System.out.println("entro cleanObjects");
+        cliente = new Ccliente();
+        //System.out.println(cliente);
         nextIdCliente();
     }
     
     public void cleanClienteForm(){
-        clienteOE = null;
+        clienteOE = new Ccliente();
     }
 
     /*

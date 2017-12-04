@@ -31,14 +31,11 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "facturacionMBean")
+@ManagedBean(name = "facturaciondevoconsufinalMBean")
 @ViewScoped
-public class PFacturacionMBean extends ClientUtils implements Serializable {
-
-    
+public class PFacturaciondevoConsuFinalMBean extends ClientUtils implements Serializable {
      FacesContext facesContext = FacesContext.getCurrentInstance();
-    CclienteMBean bean = (CclienteMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clienteMBean");
-
+     CclientedevoConsufiMBean bean = (CclientedevoConsufiMBean) facesContext.getApplication().getELResolver().getValue(facesContext.getELContext(), null, "clientedevoconsufiMBean");
 
     private Cproducto producto;
     private Cfpago fpago;
@@ -64,6 +61,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
     private String globalIdDocumento;
     private final String ordenEntrega = "1";
     private final String consumidorFinal = "2";
+    private final String consumidorFinalDevolucion = "3";
     private final String borrador = "BORRADOR";
     private final String activo = "ACTIVO";
 
@@ -78,7 +76,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
     private Date desde;
     private Date hasta;
 
-    public PFacturacionMBean() {
+    public PFacturaciondevoConsuFinalMBean() {
         resultList = new ArrayList<>();
         listDocumento = new ArrayList<>();
         documentoFiltrar = new VFacturas();
@@ -104,9 +102,9 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
         facturaList = new ArrayList<>();
         selectedList = new ArrayList<>();
         resultList = new ArrayList<>();
+        loadFormaPago();
         this.setTotalPrecio(0.00);
         this.setTotalCantidad(0.00);
-        loadFormaPago();
         this.setTotalPrecioArticulo(0.00);
         this.setSelectedidpago("");
         this.setTotalCantidadArticulo(0.00);
@@ -368,6 +366,7 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
                 addsimplemessages(
                         (obj.length() != 0 ? obj.get("dato").toString() : "Documento Guardado con Exito Borrador"));
                 guardarDetalle(facturaList, globalIdDocumento, getEmpleado().getSucursal(), getEmpleado().getIdEmpresa());
+                //Limpiar Campos
                 showNewOE();
             } else {
                 addsimplemessageserror("Debe Seleccionar Articulos");
@@ -721,6 +720,10 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
         this.selVend = selVend;
     }
 
+    public String getConsumidorFinalDevolucion() {
+        return consumidorFinalDevolucion;
+    }
+
     public List<CtipoDocumento> getListTdoc() {
         return listTdoc;
     }
@@ -743,6 +746,14 @@ public class PFacturacionMBean extends ClientUtils implements Serializable {
 
     public void setListVend(List<Cempleado> listVend) {
         this.listVend = listVend;
+    }
+
+    public CclientedevoConsufiMBean getBean() {
+        return bean;
+    }
+
+    public void setBean(CclientedevoConsufiMBean bean) {
+        this.bean = bean;
     }
 
     public Date getDesde() {

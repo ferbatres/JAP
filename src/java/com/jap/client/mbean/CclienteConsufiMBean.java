@@ -134,6 +134,7 @@ public class CclienteConsufiMBean extends ClientUtils implements Serializable {
     public void cleanObjects() {
         //System.out.println("entro cleanObjects");
         cliente = new Ccliente();
+        clienteList();
         //System.out.println(cliente);
         nextIdCliente();
     }

@@ -43,7 +43,7 @@
                                                  filteredValue="#{clientecfiscalMBean.filteredCliente}" paginator="true"  selectionMode="single" rowKey="#{car.id}"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        <p:ajax event="rowSelect" oncomplete="PF('dialoclienteSearch').hide()" update=":cfiscalformclienteoe" listener="#{clientecfiscalMBean.selectClienteFromDialog()}" />
+                                        <p:ajax event="rowSelect" oncomplete="PF('dialoclienteSearchcfiscal').hide()" update=":cfiscalformclienteoe" listener="#{clientecfiscalMBean.selectClienteFromDialog()}" />
 
                                         <f:facet name="header">
                                             <p:outputPanel>

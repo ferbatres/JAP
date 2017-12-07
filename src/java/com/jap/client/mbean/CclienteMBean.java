@@ -32,7 +32,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     }
 
     public List<Ccliente> clienteList() {
-        //System.out.println("llenando clienteList");
+        System.out.println("llenando clienteList");
         list = new ArrayList<>();
         String param = "{}";
         String url = getHttpSegment() + "/WsRestFullJap/jap/ccliente/fccliente";
@@ -101,25 +101,26 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     }
 
     public void selectClienteFromDialog() {
-        //System.out.println("entro selectClienteFromDialog");
-        this.clienteOE.setId(this.cliente.getId());
-        this.clienteOE.setComentarios(this.cliente.getComentarios());
-        this.clienteOE.setDireccion(this.cliente.getDireccion());
-        this.clienteOE.setEmail(this.cliente.getEmail());
-        this.clienteOE.setFax(this.cliente.getFax());
-        this.clienteOE.setIdCiudad(this.cliente.getIdCiudad());
-        this.clienteOE.setIdDepto(this.cliente.getIdDepto());
-        this.clienteOE.setDescripcionDepto(this.cliente.getDescripcionDepto());
-        this.clienteOE.setGiro(this.cliente.getGiro());
-        this.clienteOE.setIdMunicipio(this.cliente.getIdMunicipio());
-        this.clienteOE.setDescripcionMunicipio(this.cliente.getDescripcionMunicipio());
-        this.clienteOE.setLimiteDeCredito(this.cliente.getLimiteDeCredito());
-        this.clienteOE.setNombre(this.cliente.getNombre());
-        this.clienteOE.setNit(this.cliente.getNit());
-        this.clienteOE.setPercepcion(this.cliente.getPercepcion());
-        this.clienteOE.setRegistroFiscal(this.cliente.getRegistroFiscal());
-        this.clienteOE.setTelefono1(this.cliente.getTelefono1());
-        this.clienteOE.setTelefono2(this.cliente.getTelefono2());
+        System.out.println("entro selectClienteFromDialog");
+        clienteOE =  new Ccliente();
+        this.clienteOE.setId(cliente.getId());
+        this.clienteOE.setComentarios(cliente.getComentarios());
+        this.clienteOE.setDireccion(cliente.getDireccion());
+        this.clienteOE.setEmail(cliente.getEmail());
+        this.clienteOE.setFax(cliente.getFax());
+        this.clienteOE.setIdCiudad(cliente.getIdCiudad());
+        this.clienteOE.setIdDepto(cliente.getIdDepto());
+        this.clienteOE.setDescripcionDepto(cliente.getDescripcionDepto());
+        this.clienteOE.setGiro(cliente.getGiro());
+        this.clienteOE.setIdMunicipio(cliente.getIdMunicipio());
+        this.clienteOE.setDescripcionMunicipio(cliente.getDescripcionMunicipio());
+        this.clienteOE.setLimiteDeCredito(cliente.getLimiteDeCredito());
+        this.clienteOE.setNombre(cliente.getNombre());
+        this.clienteOE.setNit(cliente.getNit());
+        this.clienteOE.setPercepcion(cliente.getPercepcion());
+        this.clienteOE.setRegistroFiscal(cliente.getRegistroFiscal());
+        this.clienteOE.setTelefono1(cliente.getTelefono1());
+        this.clienteOE.setTelefono2(cliente.getTelefono2());
     }
 
     private void nextIdCliente() {
@@ -134,6 +135,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     public void cleanObjects() {
         //System.out.println("entro cleanObjects");
         this.cliente = new Ccliente();
+        clienteList();
         nextIdCliente();
     }
     

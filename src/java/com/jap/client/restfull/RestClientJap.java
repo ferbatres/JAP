@@ -140,7 +140,7 @@ public class RestClientJap extends ClientUtils implements Serializable {
         pagedevoConsumidorFinal = "/facturacion/f_consumidor_devofinal.xhtml";
         pageCreditoFiscal = "/facturacion/f_credito_fiscal.xhtml";
         pagecfiscalCTipoClienteSearch = "/facturacion/find_cliente_cfiscal.xhtml";
-        pagecfiscalProductoSearch="/facturacion/find_producto_cfiscal.xhtml";;
+        pagecfiscalProductoSearch="/facturacion/find_producto_cfiscal.xhtml";
     }
 
     public void ClearVehiculos() {

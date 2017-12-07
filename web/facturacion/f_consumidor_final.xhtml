@@ -38,10 +38,10 @@
                     <div class="col-xs-10">
                         <div class="box">
                             <div class="box-body">
-                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearch" height="300" width = "800">                                    
+                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearchconsu" height="300" width = "800">                                    
                                     <ui:include  src="#{restClientJap.pageconsufiCTipoClienteSearch}" />
                                 </p:dialog>
-                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearch" height="500" width = "900">                                    
+                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearchconsu" height="500" width = "900">                                    
                                     <ui:include  src="#{restClientJap.pageconsufiProductoSearch}" />
                                 </p:dialog>
                                                                    
@@ -52,7 +52,7 @@
                                                 <div class="form-group">
                                                     <h:outputLabel value="Cliente"/>
                                                     <h:inputText id="consuficliente" value="#{clienteconsufiMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
-                                                    <p:commandButton action ="#{clienteconsufiMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearch').show()">
+                                                    <p:commandButton action ="#{clienteconsufiMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearchconsu').show()">
                                                     </p:commandButton>
                                                 </div>
                                                 <div class="form-group">                                                    
@@ -117,7 +117,7 @@
                                     <f:view>                                    
                                         <h:form id="consufiformfacturaoe">
                                             <h3><h:outputText value="Datos de la factura"/></h3>
-                                            <p:commandButton value="Articulos" action="#{facturacionconsufinalMBean.cleanArticulos()}" update=":consufiformProductoBusquedafacturacion:consufitproducto_fnd_facturacion,:consufiformProductoresultado:consufitarticuloresult" onclick="PF('dialoproductoSearch').show()" />
+                                            <p:commandButton value="Articulos" action="#{facturacionconsufinalMBean.cleanArticulos()}" update=":consufiformProductoBusquedafacturacion:consufitproducto_fnd_facturacion,:consufiformProductoresultado:consufitarticuloresult" onclick="PF('dialoproductoSearchconsu').show()" />
 
                                             <p:remoteCommand name="refreshHeaderArticulo" update=":consufiformclienteoe,:consufiformfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
                                             <p:remoteCommand name="refreshFooterArticulo" update=":consufiformfacturaoe:consufitfactura"/>

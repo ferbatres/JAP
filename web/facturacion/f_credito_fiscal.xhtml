@@ -38,10 +38,10 @@
                     <div class="col-xs-10">
                         <div class="box">
                             <div class="box-body">
-                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearch" height="300" width = "800">                                    
+                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearchcfiscal" height="300" width = "800">                                    
                                     <ui:include  src="#{restClientJap.pagecfiscalCTipoClienteSearch}" />
                                 </p:dialog>
-                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearch" height="500" width = "900">                                    
+                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearchcfiscal" height="500" width = "900">                                    
                                     <ui:include  src="#{restClientJap.pagecfiscalProductoSearch}" />
                                 </p:dialog>
                                                                    
@@ -52,7 +52,7 @@
                                                 <div class="form-group">
                                                     <h:outputLabel value="Cliente"/>
                                                     <h:inputText id="cfiscalcliente" value="#{clientecfiscalMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
-                                                    <p:commandButton action ="#{clientecfiscalMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearch').show()">
+                                                    <p:commandButton action ="#{clientecfiscalMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearchcfiscal').show()">
                                                     </p:commandButton>
                                                 </div>
                                                 <div class="form-group">                                                    
@@ -117,7 +117,7 @@
                                     <f:view>                                    
                                         <h:form id="cfiscalformfacturaoe">
                                             <h3><h:outputText value="Datos de la factura"/></h3>
-                                            <p:commandButton value="Articulos" action="#{facturacioncfiscalMBean.cleanArticulos()}" update=":cfiscalformProductoBusquedafacturacion:cfiscaltproducto_fnd_facturacion,:cfiscalformProductoresultado:cfiscaltarticuloresult" onclick="PF('dialoproductoSearch').show()" />
+                                            <p:commandButton value="Articulos" action="#{facturacioncfiscalMBean.cleanArticulos()}" update=":cfiscalformProductoBusquedafacturacion:cfiscaltproducto_fnd_facturacion,:cfiscalformProductoresultado:cfiscaltarticuloresult" onclick="PF('dialoproductoSearchcfiscal').show()" />
 
                                             <p:remoteCommand name="refreshHeaderArticulo" update=":cfiscalformclienteoe,:cfiscalformfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
                                             <p:remoteCommand name="refreshFooterArticulo" update=":cfiscalformfacturaoe:cfiscaltfactura"/>

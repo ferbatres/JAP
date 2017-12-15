@@ -333,6 +333,10 @@
                                <ui:include  src="#{restClientJap.pageCreditoFiscal}" />
                         </p:dialog>
                          
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Nota de Credito" widgetVar="dialognotaCre">
+                              <ui:include  src="#{restClientJap.pageNotaCreditoFac}" />
+                        </p:dialog>
+                         
                          <h:form id="fnd_producto">
                             <p:dialog  modal="true"   width="1200" height="300" fitViewport="true" header="Productos y Precios" widgetVar="prdCost">
                                

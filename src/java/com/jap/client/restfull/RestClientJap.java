@@ -72,6 +72,9 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private String pageProductoSearch;
     private String pageconsufiProductoSearch;
     private String pagedevoconsufiProductoSearch;
+    private String pagenotaCTipoClienteSearch;
+    private String pagenotaProductoSearch;
+    private String pageNotaCreditoFac;
     
 
     private void loadCtipoVehiculo() {
@@ -136,9 +139,12 @@ public class RestClientJap extends ClientUtils implements Serializable {
         pageProductoSearch = "/facturacion/find_producto.xhtml";
         pageconsufiProductoSearch = "/facturacion/find_producto_consumidor.xhtml";
         pagedevoconsufiProductoSearch = "/facturacion/find_producto_devoconsumidor.xhtml";
+        pagenotaCTipoClienteSearch = "/facturacion/find_cliente_nota.xhtml";
+        pagenotaProductoSearch = "/facturacion/find_producto_nota.xhtml";        
         pageConsumidorFinal = "/facturacion/f_consumidor_final.xhtml";
         pagedevoConsumidorFinal = "/facturacion/f_consumidor_devofinal.xhtml";
         pageCreditoFiscal = "/facturacion/f_credito_fiscal.xhtml";
+        pageNotaCreditoFac ="/facturacion/f_nota_credito.xhtml";
         pagecfiscalCTipoClienteSearch = "/facturacion/find_cliente_cfiscal.xhtml";
         pagecfiscalProductoSearch="/facturacion/find_producto_cfiscal.xhtml";
     }
@@ -4460,6 +4466,22 @@ public class RestClientJap extends ClientUtils implements Serializable {
         return CdocumentoStatus;
     }
 
+    public String getPagenotaCTipoClienteSearch() {
+        return pagenotaCTipoClienteSearch;
+    }
+
+    public void setPagenotaCTipoClienteSearch(String pagenotaCTipoClienteSearch) {
+        this.pagenotaCTipoClienteSearch = pagenotaCTipoClienteSearch;
+    }
+
+    public String getPagenotaProductoSearch() {
+        return pagenotaProductoSearch;
+    }
+
+    public void setPagenotaProductoSearch(String pagenotaProductoSearch) {
+        this.pagenotaProductoSearch = pagenotaProductoSearch;
+    }
+
     public List<Cmarca> getCmodelomarcalist() {
         return cmodelomarcalist;
     }
@@ -5038,6 +5060,14 @@ public class RestClientJap extends ClientUtils implements Serializable {
 
     public void setPageCreditoFiscal(String pageCreditoFiscal) {
         this.pageCreditoFiscal = pageCreditoFiscal;
+    }
+
+    public String getPageNotaCreditoFac() {
+        return pageNotaCreditoFac;
+    }
+
+    public void setPageNotaCreditoFac(String pageNotaCreditoFac) {
+        this.pageNotaCreditoFac = pageNotaCreditoFac;
     }
 
     public void setPageconsufiCTipoClienteSearch(String pageconsufiCTipoClienteSearch) {

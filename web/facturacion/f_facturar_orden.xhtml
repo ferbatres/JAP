@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>       
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+        <link rel="stylesheet" href="../dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css" ></link>
+
+        <style type="text/css">
+            .ui-growl-message {
+                font-size: 12px;
+            }
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-growl {
+                top:10%;
+                z-index:99999;
+            }
+        </style>
+    </h:head>
+    <h:body  class="hold-transition skin-blue sidebar-mini">
+        <section class="content">
+            <div id="facordenmaincontent">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <div class="box">
+                            <div class="box-body">
+                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearchfacorden" height="300" width = "800">                                    
+                                    <ui:include  src="#{restClientJap.pagefacordenCTipoClienteSearch}" />
+                                </p:dialog>
+                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearchfacorden" height="500" width = "900">                                    
+                                    <ui:include  src="#{restClientJap.pagefacordenProductoSearch}" />
+                                </p:dialog>
+                                                                   
+                                    <h:form id="facordenformclienteoe">
+                                        <h3><h:outputText value="Datos del Cliente"/></h3>
+                                        <div class = "row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Cliente"/>
+                                                    <h:inputText id="facordencliente" value="#{clientefacordenMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
+                                                    <p:commandButton action ="#{clientefacordenMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearchfacorden').show()">
+                                                    </p:commandButton>
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Direccion"/>
+                                                    <h:inputText id="facordendireccion" value="#{clientefacordenMBean.clienteOE.direccion}" title="Direccion" class = "form-control" readonly="true"/>                                                    
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Ciudad"/>
+                                                    <h:inputText id="facordenciudad" value="#{clientefacordenMBean.clienteOE.descripcionCiudad}" title="Ciudad" class = "form-control" readonly="true"/> 
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="Departamento"/>
+                                                    <h:inputText id="facordendepartamento" value="#{clientefacordenMBean.clienteOE.descripcionDepto}" title="Departamento" class = "form-control" readonly="true"/>                                                    
+                                                </div>
+                                                <div class="form-group">                                                    
+                                                    <h:outputLabel value="NIT"/>
+                                                    <h:inputText id="facordennit" value="#{clientefacordenMBean.clienteOE.nit}" title="NIT" class = "form-control" readonly="true"/>                                           
+                                                </div>    
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Correlativo"/>
+                                                    <h:inputText id="facordencorrelativo" value="#{facturaciofacordenMBean.getFacturacionId()}" title="Correlativo" class = "form-control" readonly="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Forma de Pago"/>
+
+                                                    <p:selectOneMenu  value="#{facturaciofacordenMBean.selectedidpago}" style="width:100%" id="facordenformapago" >
+                                                        <p:ajax event="change" update="@this"/>
+                                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+
+                                                        <f:selectItems value="#{facturaciofacordenMBean.listFpago}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Vendedor"/>
+                                                    <h:inputText id="facordenvendedor" value="#{facturaciofacordenMBean.empleadoCheck}" title="Vendedor" class = "form-control" required="true" readonly="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <h:outputLabel value="Sucursal"/>
+                                                    <h:inputText id="facordensucursal" value="#{facturaciofacordenMBean.sucursalCheck}" title="Sucursal" class = "form-control" required="true" readonly="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10">
+                        <div class="box box-primary">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <f:view>                                    
+                                        <h:form id="facordenformfacturaoe">
+                                            <h3><h:outputText value="Datos de la factura"/></h3>
+                                            <p:commandButton value="Articulos" action="#{facturaciofacordenMBean.cleanArticulos()}" update=":facordenformProductoBusquedafacturacion:facordentproducto_fnd_facturacion,:facordenformProductoresultado:facordentarticuloresult" onclick="PF('dialoproductoSearchfacorden').show()" />
+
+                                            <p:remoteCommand name="refreshHeaderArticulo" update=":facordenformclienteoe,:facordenformfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
+                                            <p:remoteCommand name="refreshFooterArticulo" update=":facordenformfacturaoe:facordentfactura"/>
+                                            <p:dataTable var="producto" class="table table-bordered table-hover" id="facordentfactura" value="#{facturaciofacordenMBean.facturaList}"
+                                                         editable = "true" rows="25" rowKey="#{producto.id}">
+
+                                                <p:ajax event="rowEdit" partialSubmit="true" listener="#{facturaciofacordenMBean.onRowEditArticulo}" process=":facordenformfacturaoe:facordentfactura" update=":facordenformfacturaoe:facordentfactura,facordenformProductoresultado:facordentarticuloresult" oncomplete="refreshFooterArticulo()"/>
+                                                <p:ajax event="rowEditCancel" partialSubmit="true" listener="#{facturaciofacordenMBean.onRowCancelArticulo}" process=":facordenformfacturaoe:facordentfactura" update=":facordenformfacturaoe:facordentfactura,facordenformProductoresultado:facordentarticuloresult" oncomplete="refreshFooterArticulo()"/>
+
+
+                                                <p:column headerText="#">
+                                                    <h:outputText value="#{producto.id}" />
+                                                </p:column>
+
+                                                <p:column headerText="Producto">
+                                                    <h:outputText value="#{producto.codigo}" />
+                                                </p:column>
+
+                                                <p:column headerText="Descripcion">
+                                                    <h:outputText value="#{producto.descripcion}" />
+                                                </p:column>
+
+
+                                                <p:column headerText="Cantidad">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.cantidad}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="facordencantidadInput" value="#{producto.cantidad}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column headerText="Precio">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output">
+                                                            <h:outputText value="#{producto.precio}" />
+                                                        </f:facet>
+                                                        <f:facet name="input">
+                                                            <p:inputText id="facordenpreciodInput" value="#{producto.precio}" style="width:100%"/>
+                                                        </f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+
+                                                <p:column style="width:32px">
+                                                    <p:rowEditor />
+                                                </p:column>
+
+                                                <p:column style="width:42px">
+                                                    <p:commandButton actionListener="#{facturaciofacordenMBean.removerArticulo(producto)}" update="formfacturaoe,formProductoresultado" icon="ui-icon-close" title="Quitar"/>
+                                                </p:column>
+
+
+                                                <f:facet name="footer">
+                                                    <h:outputText value="Total Precio: " />
+                                                    <h:outputText id="facordentotalPrecio1" value="#{facturaciofacordenMBean.totalPrecioArticulo}">
+                                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                                    </h:outputText>
+                                                    <h:outputText value="    Cantidad: " />
+                                                    <h:outputText id="facordentotalCantidad1" value="#{facturaciofacordenMBean.totalCantidadArticulo}"/> 
+
+                                                </f:facet>                                                
+                                            </p:dataTable>
+
+                                        </h:form>
+                                        <h:form>
+                                            <p:toolbar>
+                                                <f:facet name="right">
+                                                    <p:commandButton actionListener="#{facturaciofacordenMBean.guardar(clientefacordenMBean.clienteOE,facturaciofacordenMBean.facturaList,restClientJap.empleadoCheck,facturaciofacordenMBean.facturarordenentrega,facturaciofacordenMBean.borrador)}" icon="ui-icon-document" value="Guardar"
+                                                                     process = "@all" update=":facordenformfacturaoe,:facordenformclienteoe,:facordenformProductoBusquedafacturacion,:facordenformProductoresultado">
+                                                    </p:commandButton>
+                                                    <span class="ui-separator">
+                                                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                                    </span>
+                                                        <p:commandButton action="#{facturaciofacordenMBean.generar(facturaciofacordenMBean.facturaList)}" icon="ui-icon-script" value="Generar"  oncomplete="PF('dialoordenentrega').hide()" >
+                                                            <p:resetInput target=":facordenformclienteoe" />
+                                                        </p:commandButton>
+                                                </f:facet>
+                                            </p:toolbar>    
+                                        </h:form>
+                                           
+
+                                    </f:view>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </h:body>
+</html>

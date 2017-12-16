@@ -5,11 +5,13 @@
  */
 package com.jap.client.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author fernando_batres
  */
-public class VFacturas {
+public class VFacturas implements Serializable{
 
     private String empresa;
     private String idTipoDocumento;

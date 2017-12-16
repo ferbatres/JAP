@@ -75,6 +75,9 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private String pagenotaCTipoClienteSearch;
     private String pagenotaProductoSearch;
     private String pageNotaCreditoFac;
+    private String pageFacordenEntrega;
+    private String pagefacordenCTipoClienteSearch;
+    private String pagefacordenProductoSearch;
     
 
     private void loadCtipoVehiculo() {
@@ -145,8 +148,12 @@ public class RestClientJap extends ClientUtils implements Serializable {
         pagedevoConsumidorFinal = "/facturacion/f_consumidor_devofinal.xhtml";
         pageCreditoFiscal = "/facturacion/f_credito_fiscal.xhtml";
         pageNotaCreditoFac ="/facturacion/f_nota_credito.xhtml";
+        pageFacordenEntrega ="/facturacion/f_facturar_orden.xhtml";
         pagecfiscalCTipoClienteSearch = "/facturacion/find_cliente_cfiscal.xhtml";
         pagecfiscalProductoSearch="/facturacion/find_producto_cfiscal.xhtml";
+        
+        pagefacordenCTipoClienteSearch = "/facturacion/find_cliente_forden.xhtml";
+        pagefacordenProductoSearch="/facturacion/find_producto_forden.xhtml";
     }
 
     public void ClearVehiculos() {
@@ -4602,6 +4609,14 @@ public class RestClientJap extends ClientUtils implements Serializable {
         return CtallerDescripcion;
     }
 
+    public String getPageFacordenEntrega() {
+        return pageFacordenEntrega;
+    }
+
+    public void setPageFacordenEntrega(String pageFacordenEntrega) {
+        this.pageFacordenEntrega = pageFacordenEntrega;
+    }
+
     public void setCtallerDescripcion(String CtallerDescripcion) {
         this.CtallerDescripcion = CtallerDescripcion;
     }
@@ -5068,6 +5083,22 @@ public class RestClientJap extends ClientUtils implements Serializable {
 
     public void setPageNotaCreditoFac(String pageNotaCreditoFac) {
         this.pageNotaCreditoFac = pageNotaCreditoFac;
+    }
+
+    public String getPagefacordenCTipoClienteSearch() {
+        return pagefacordenCTipoClienteSearch;
+    }
+
+    public void setPagefacordenCTipoClienteSearch(String pagefacordenCTipoClienteSearch) {
+        this.pagefacordenCTipoClienteSearch = pagefacordenCTipoClienteSearch;
+    }
+
+    public String getPagefacordenProductoSearch() {
+        return pagefacordenProductoSearch;
+    }
+
+    public void setPagefacordenProductoSearch(String pagefacordenProductoSearch) {
+        this.pagefacordenProductoSearch = pagefacordenProductoSearch;
     }
 
     public void setPageconsufiCTipoClienteSearch(String pageconsufiCTipoClienteSearch) {

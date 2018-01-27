@@ -319,6 +319,12 @@
                         </p:dialog>
                          
                          
+                         
+                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Buscar" widgetVar="dialobuscardocodt">
+                              <ui:include  src="#{restClientJap.pageBuscarDocOdt}" />
+                        </p:dialog>
+                         
+                         
                          <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Consumidor Final" widgetVar="dialogconsumidor">
                              <ui:include  src="#{restClientJap.pageConsumidorFinal}" />
                         </p:dialog>
@@ -339,6 +345,10 @@
                          
                           <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Facturar Orden de Entrega" widgetVar="dialogfacordenP">
                               <ui:include  src="#{restClientJap.pageFacordenEntrega}" />
+                        </p:dialog>
+                         
+                        <p:dialog resizable="false" closeOnEscape="true" responsive="true" width="800" height="500" fitViewport="true" header="Orden de Taller" widgetVar="dialogodt">
+                              <ui:include  src="#{restClientJap.pageodtFactura}" />
                         </p:dialog>
                          
                          <h:form id="fnd_producto">

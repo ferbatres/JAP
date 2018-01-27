@@ -33,82 +33,78 @@
     </h:head>
     <h:body  class="hold-transition skin-blue sidebar-mini">
         <section class="content">
-            <div id="maincontent">
+            <div id="odtmaincontent">
                 <div class="row">
                     <div class="col-xs-10">
                         <div class="box">
                             <div class="box-body">
-                                
-                                <p:dialog header="Busqueda Cliente" appendTo="@(body)"  widgetVar="dialoclienteSearch" height="300" width = "800">                                    
-                                    <ui:include  src="#{restClientJap.pageCTipoClienteSearch}" />
+                                <p:dialog header="Busqueda Cliente" widgetVar="dialoclienteSearchodt" height="300" width = "800">                                    
+                                    <ui:include  src="#{restClientJap.pageodtCTipoClienteSearch}" />
                                 </p:dialog>
-                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearch" height="500" width = "900">                                    
-                                    <ui:include  src="#{restClientJap.pageProductoSearch}" />
+                                <p:dialog header="Busqueda de Produtos"  widgetVar="dialoproductoSearchodt" height="500" width = "900">                                    
+                                    <ui:include  src="#{restClientJap.pageodtProductoSearch}" />
                                 </p:dialog>
-                                <f:view>                                    
-                                    <h:form id="formclienteoe">
-                                        
+                                                                   
+                                    <h:form id="odtformclienteoe">
                                         <h3><h:outputText value="Datos del Cliente"/></h3>
                                         <div class = "row">
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <h:outputLabel value="Cliente"/> 
-                                                    <h:inputText id="cliente" value="#{clienteMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
-                                                    
-                                                    <p:commandButton actionListener="#{clienteMBean.cleanObjects()}" update=":formcliente1"  value="Buscar Cliente" oncomplete="dialoclienteSearch.show();" onclick="PF('dialoclienteSearch').show()"  >
-                                                    
+                                                    <h:outputLabel value="Cliente"/>
+                                                    <h:inputText id="odtcliente" value="#{clienteodtMBean.clienteOE.nombre}" title="Cliente" class = "form-control" readonly="true"/>
+                                                    <p:commandButton action ="#{clienteodtMBean.cleanObjects()}" value="Buscar Cliente" onclick="PF('dialoclienteSearchodt').show()">
                                                     </p:commandButton>
                                                 </div>
                                                 <div class="form-group">                                                    
                                                     <h:outputLabel value="Direccion"/>
-                                                    <h:inputText id="direccion" value="#{clienteMBean.clienteOE.direccion}" title="Direccion" class = "form-control" readonly="true"/>                                                    
+                                                    <h:inputText id="odtdireccion" value="#{clienteodtMBean.clienteOE.direccion}" title="Direccion" class = "form-control" readonly="true"/>                                                    
                                                 </div>
                                                 <div class="form-group">                                                    
                                                     <h:outputLabel value="Ciudad"/>
-                                                    <h:inputText id="ciudad" value="#{clienteMBean.clienteOE.descripcionCiudad}" title="Ciudad" class = "form-control" readonly="true"/> 
+                                                    <h:inputText id="odtciudad" value="#{clienteodtMBean.clienteOE.descripcionCiudad}" title="Ciudad" class = "form-control" readonly="true"/> 
                                                 </div>
                                                 <div class="form-group">                                                    
                                                     <h:outputLabel value="Departamento"/>
-                                                    <h:inputText id="departamento" value="#{clienteMBean.clienteOE.descripcionDepto}" title="Departamento" class = "form-control" readonly="true"/>                                                    
+                                                    <h:inputText id="odtdepartamento" value="#{clienteodtMBean.clienteOE.descripcionDepto}" title="Departamento" class = "form-control" readonly="true"/>                                                    
                                                 </div>
                                                 <div class="form-group">                                                    
                                                     <h:outputLabel value="NIT"/>
-                                                    <h:inputText id="nit" value="#{clienteMBean.clienteOE.nit}" title="NIT" class = "form-control" readonly="true"/>                                           
+                                                    <h:inputText id="odtnit" value="#{clienteodtMBean.clienteOE.nit}" title="NIT" class = "form-control" readonly="true"/>                                           
                                                 </div>    
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <h:outputLabel value="Correlativo"/>
-                                                    <h:inputText id="correlativo" value="#{facturacionMBean.getFacturacionId()}" title="Correlativo" class = "form-control" readonly="true" />
+                                                    <h:inputText id="odtcorrelativo" value="#{facturacionodtMBean.getFacturacionId()}" title="Correlativo" class = "form-control" readonly="true" />
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <h:outputLabel value="Forma de Pago"/>
 
-                                                    <p:selectOneMenu  value="#{facturacionMBean.selectedidpago}" style="width:100%" id="formapago" >
+                                                    <p:selectOneMenu  value="#{facturacionodtMBean.selectedidpago}" style="width:100%" id="odtformapago" >
                                                         <p:ajax event="change" update="@this"/>
                                                         <f:selectItem itemLabel="Seleccione" itemValue="" />
 
-                                                        <f:selectItems value="#{facturacionMBean.listFpago}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
+                                                        <f:selectItems value="#{facturacionodtMBean.listFpago}" var="c" itemLabel="#{c.descripcion}" itemValue="#{c.id}"/>
                                                     </p:selectOneMenu>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <h:outputLabel value="Vendedor"/>
-                                                    <h:inputText id="vendedor" value="#{facturacionMBean.empleadoCheck}" title="Vendedor" class = "form-control" required="true" readonly="true"/>
+                                                    <h:inputText id="odtvendedor" value="#{facturacionodtMBean.empleadoCheck}" title="Vendedor" class = "form-control" required="true" readonly="true"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
                                                     <h:outputLabel value="Sucursal"/>
-                                                    <h:inputText id="sucursal" value="#{facturacionMBean.sucursalCheck}" title="Sucursal" class = "form-control" required="true" readonly="true"/>
+                                                    <h:inputText id="odtsucursal" value="#{facturacionodtMBean.sucursalCheck}" title="Sucursal" class = "form-control" required="true" readonly="true"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </h:form>
-                                </f:view>
+                                
                             </div>
                         </div>
                     </div>
@@ -119,17 +115,17 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <f:view>                                    
-                                        <h:form id="formfacturaoe">
+                                        <h:form id="odtformfacturaoe">
                                             <h3><h:outputText value="Datos de la factura"/></h3>
-                                            <p:commandButton value="Articulos" action="#{facturacionMBean.cleanArticulos()}" update=":formProductoBusquedafacturacion:tproducto_fnd_facturacion,:formProductoresultado:tarticuloresult" onclick="PF('dialoproductoSearch').show()" />
+                                            <p:commandButton value="Articulos" action="#{facturacionodtMBean.cleanArticulos()}" update=":odtformProductoBusquedafacturacion:odttproducto_fnd_facturacion,:odtformProductoresultado:odttarticuloresult" onclick="PF('dialoproductoSearchodt').show()" />
 
-                                            <p:remoteCommand name="refreshHeaderArticulo" update=":formclienteoe,:formfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
-                                            <p:remoteCommand name="refreshFooterArticulo" update=":formfacturaoe:tfactura"/>
-                                            <p:dataTable var="producto" class="table table-bordered table-hover" id="tfactura" value="#{facturacionMBean.facturaList}"
+                                            <p:remoteCommand name="refreshHeaderArticulo" update=":odtformclienteoe,:odtformfacturaoe" oncomplete="PF('dialoordenentrega').hide()"/>
+                                            <p:remoteCommand name="refreshFooterArticulo" update=":odtformfacturaoe:odttfactura"/>
+                                            <p:dataTable var="producto" class="table table-bordered table-hover" id="odttfactura" value="#{facturacionodtMBean.facturaList}"
                                                          editable = "true" rows="25" rowKey="#{producto.id}">
 
-                                                <p:ajax event="rowEdit" partialSubmit="true" listener="#{facturacionMBean.onRowEditArticulo}" process=":formfacturaoe:tfactura" update=":formfacturaoe:tfactura,formProductoresultado:tarticuloresult" oncomplete="refreshFooterArticulo()"/>
-                                                <p:ajax event="rowEditCancel" partialSubmit="true" listener="#{facturacionMBean.onRowCancelArticulo}" process=":formfacturaoe:tfactura" update=":formfacturaoe:tfactura,formProductoresultado:tarticuloresult" oncomplete="refreshFooterArticulo()"/>
+                                                <p:ajax event="rowEdit" partialSubmit="true" listener="#{facturacionodtMBean.onRowEditArticulo}" process=":odtformfacturaoe:odttfactura" update=":odtformfacturaoe:odttfactura,odtformProductoresultado:odttarticuloresult" oncomplete="refreshFooterArticulo()"/>
+                                                <p:ajax event="rowEditCancel" partialSubmit="true" listener="#{facturacionodtMBean.onRowCancelArticulo}" process=":odtformfacturaoe:odttfactura" update=":odtformfacturaoe:odttfactura,odtformProductoresultado:odttarticuloresult" oncomplete="refreshFooterArticulo()"/>
 
 
                                                 <p:column headerText="#">
@@ -151,7 +147,7 @@
                                                             <h:outputText value="#{producto.cantidad}" />
                                                         </f:facet>
                                                         <f:facet name="input">
-                                                            <p:inputText id="cantidadInput" value="#{producto.cantidad}" style="width:100%"/>
+                                                            <p:inputText id="odtcantidadInput" value="#{producto.cantidad}" style="width:100%"/>
                                                         </f:facet>
                                                     </p:cellEditor>
                                                 </p:column>
@@ -162,7 +158,7 @@
                                                             <h:outputText value="#{producto.precio}" />
                                                         </f:facet>
                                                         <f:facet name="input">
-                                                            <p:inputText id="preciodInput" value="#{producto.precio}" style="width:100%"/>
+                                                            <p:inputText id="odtpreciodInput" value="#{producto.precio}" style="width:100%"/>
                                                         </f:facet>
                                                     </p:cellEditor>
                                                 </p:column>
@@ -172,17 +168,17 @@
                                                 </p:column>
 
                                                 <p:column style="width:42px">
-                                                    <p:commandButton actionListener="#{facturacionMBean.removerArticulo(producto)}" update="formfacturaoe,formProductoresultado" icon="ui-icon-close" title="Quitar"/>
+                                                    <p:commandButton actionListener="#{facturacionodtMBean.removerArticulo(producto)}" update="formfacturaoe,formProductoresultado" icon="ui-icon-close" title="Quitar"/>
                                                 </p:column>
 
 
                                                 <f:facet name="footer">
                                                     <h:outputText value="Total Precio: " />
-                                                    <h:outputText id="totalPrecio1" value="#{facturacionMBean.totalPrecioArticulo}">
+                                                    <h:outputText id="odttotalPrecio1" value="#{facturacionodtMBean.totalPrecioArticulo}">
                                                         <f:convertNumber type="currency" currencySymbol="$" />
                                                     </h:outputText>
                                                     <h:outputText value="    Cantidad: " />
-                                                    <h:outputText id="totalCantidad1" value="#{facturacionMBean.totalCantidadArticulo}"/> 
+                                                    <h:outputText id="odttotalCantidad1" value="#{facturacionodtMBean.totalCantidadArticulo}"/> 
 
                                                 </f:facet>                                                
                                             </p:dataTable>
@@ -191,14 +187,14 @@
                                         <h:form>
                                             <p:toolbar>
                                                 <f:facet name="right">
-                                                    <p:commandButton actionListener="#{facturacionMBean.guardar(clienteMBean.clienteOE,facturacionMBean.facturaList,restClientJap.empleadoCheck,facturacionMBean.ordenEntrega,facturacionMBean.borrador)}" icon="ui-icon-document" value="Guardar"
-                                                                     process = "@all" update=":formfacturaoe,:formclienteoe,:formProductoBusquedafacturacion,:formProductoresultado">
+                                                    <p:commandButton actionListener="#{facturacionodtMBean.guardar(clienteodtMBean.clienteOE,facturacionodtMBean.facturaList,restClientJap.empleadoCheck,facturacionodtMBean.ordendetaller,facturacionodtMBean.borrador)}" icon="ui-icon-document" value="Guardar"
+                                                                     process = "@all" update=":odtformfacturaoe,:odtformclienteoe,:odtformProductoBusquedafacturacion,:odtformProductoresultado">
                                                     </p:commandButton>
                                                     <span class="ui-separator">
                                                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                                                     </span>
-                                                        <p:commandButton action="#{facturacionMBean.generar(facturacionMBean.facturaList)}" icon="ui-icon-script" value="Generar"  oncomplete="PF('dialoordenentrega').hide()" >
-                                                            <p:resetInput target=":formclienteoe" />
+                                                        <p:commandButton action="#{facturacionodtMBean.generar(facturacionodtMBean.facturaList)}" icon="ui-icon-script" value="Generar"  oncomplete="PF('dialoordenentrega').hide()" >
+                                                            <p:resetInput target=":odtformclienteoe" />
                                                         </p:commandButton>
                                                 </f:facet>
                                             </p:toolbar>    

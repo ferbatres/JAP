@@ -78,6 +78,10 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private String pageFacordenEntrega;
     private String pagefacordenCTipoClienteSearch;
     private String pagefacordenProductoSearch;
+    private String pageodtCTipoClienteSearch;
+    private String pageodtProductoSearch;
+    private String pageodtFactura;
+    
     
 
     private void loadCtipoVehiculo() {
@@ -136,6 +140,11 @@ public class RestClientJap extends ClientUtils implements Serializable {
         //Definicion de paginas para facturacion
         pageOrdenEntrega = "/facturacion/p_orden_entrega.xhtml";
         pageBuscarDoc = "/facturacion/f_orden_entrega.xhtml";
+        pageBuscarDocOdt = "/orden_taller/facturar_odt_documento.xhtml";
+        pageodtCTipoClienteSearch="/orden_taller/find_cliente_odt.xhtml";
+        pageodtProductoSearch="/orden_taller/find_producto_odt.xhtml";
+        pageodtFactura="/orden_taller/f_orden_de_taller.xhtml";
+    
         pageCTipoClienteSearch = "/facturacion/find_cliente.xhtml";
         pageconsufiCTipoClienteSearch="/facturacion/find_cliente_consumidor.xhtml";
         pagedevoconsufiCTipoClienteSearch="/facturacion/find_cliente_devoconsumidor.xhtml";
@@ -932,6 +941,7 @@ public class RestClientJap extends ClientUtils implements Serializable {
     private String pagedevoConsumidorFinal="";
     private String pageCreditoFiscal="";
     private String pageBuscarDoc = "";
+     private String pageBuscarDocOdt = "";
 
     private void loadCtipoCempresa() {
         String param = "{}";
@@ -4881,6 +4891,14 @@ public class RestClientJap extends ClientUtils implements Serializable {
         this.CmarcaDescripcion = CmarcaDescripcion;
     }
 
+    public String getPageBuscarDocOdt() {
+        return pageBuscarDocOdt;
+    }
+
+    public void setPageBuscarDocOdt(String pageBuscarDocOdt) {
+        this.pageBuscarDocOdt = pageBuscarDocOdt;
+    }
+
     public String getCmarcaStatus() {
         return CmarcaStatus;
     }
@@ -4911,6 +4929,14 @@ public class RestClientJap extends ClientUtils implements Serializable {
 
     public void setPageCTipoMarca(String pageCTipoMarca) {
         this.pageCTipoMarca = pageCTipoMarca;
+    }
+
+    public String getPageodtFactura() {
+        return pageodtFactura;
+    }
+
+    public void setPageodtFactura(String pageodtFactura) {
+        this.pageodtFactura = pageodtFactura;
     }
 
     public String getSelectedModeloMarcaCbx() {
@@ -5099,6 +5125,22 @@ public class RestClientJap extends ClientUtils implements Serializable {
 
     public void setPagefacordenProductoSearch(String pagefacordenProductoSearch) {
         this.pagefacordenProductoSearch = pagefacordenProductoSearch;
+    }
+
+    public String getPageodtCTipoClienteSearch() {
+        return pageodtCTipoClienteSearch;
+    }
+
+    public void setPageodtCTipoClienteSearch(String pageodtCTipoClienteSearch) {
+        this.pageodtCTipoClienteSearch = pageodtCTipoClienteSearch;
+    }
+
+    public String getPageodtProductoSearch() {
+        return pageodtProductoSearch;
+    }
+
+    public void setPageodtProductoSearch(String pageodtProductoSearch) {
+        this.pageodtProductoSearch = pageodtProductoSearch;
     }
 
     public void setPageconsufiCTipoClienteSearch(String pageconsufiCTipoClienteSearch) {

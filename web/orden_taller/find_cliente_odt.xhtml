@@ -33,27 +33,22 @@
     </h:head>
     <h:body  class="hold-transition skin-blue sidebar-mini">
         <section class="content">
-            <div id="maincontent">
+            <div id="odtmaincontent">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-body">
-                                
-                                <h:form id="formcliente1">
-                                                                   
-                                    
-                                
-                                        <p:dataTable var="car" 
-                                                     class="table table-bordered table-hover" id="tcliente" selection="#{clienteMBean.cliente}" value="#{clienteMBean.list}" rows="5"
-                                                 filteredValue="#{clienteMBean.filteredCliente}" paginator="true"  selectionMode="single" rowKey="#{car.id}"
+                                <h:form id="odtformcliente1">
+                                    <p:dataTable var="car" class="table table-bordered table-hover" id="odttcliente" selection="#{clienteodtMBean.cliente}" value="#{clienteodtMBean.clienteList()}" rows="5"
+                                                 filteredValue="#{clienteodtMBean.filteredCliente}" paginator="true"  selectionMode="single" rowKey="#{car.id}"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        <p:ajax event="rowSelect" oncomplete="PF('dialoclienteSearch').hide()" update=":formclienteoe" listener="#{clienteMBean.selectClienteFromDialog()}" />
+                                        <p:ajax event="rowSelect" oncomplete="PF('dialoclienteSearchodt').hide()" update=":odtformclienteoe" listener="#{clienteodtMBean.selectClienteFromDialog()}" />
 
                                         <f:facet name="header">
                                             <p:outputPanel>
                                                 <h:outputText value="Buscar:" />
-                                                <p:inputText id="globalFilter" onkeyup="PF('tcliente').filter()" style="width:150px" placeholder="Ingrese su búsqueda"/>
+                                                <p:inputText id="odtglobalFilter" onkeyup="PF('tcliente').filter()" style="width:150px" placeholder="Ingrese su búsqueda"/>
                                             </p:outputPanel>
                                         </f:facet>
 
@@ -81,7 +76,6 @@
                                             <h:outputText value="#{car.nit}" />
                                         </p:column>
                                     </p:dataTable>
-                                        
                                 </h:form>
                             </div>
                         </div>

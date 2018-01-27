@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,9 +15,9 @@ import org.json.JSONObject;
  *
  * @author fernando_batres
  */
-@ManagedBean(name = "clienteMBean")
-@SessionScoped
-public class CclienteMBean extends ClientUtils implements Serializable {
+@ManagedBean(name = "clienteodtMBean")
+@ViewScoped
+public class CclienteOdtMBean extends ClientUtils implements Serializable {
 
     private Ccliente cliente;
     private Ccliente selectedCliente;
@@ -26,51 +25,14 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     private List<Ccliente> filteredCliente;
     private List<Ccliente> list;
 
-    private String testvar  ="HOLA";
-    public CclienteMBean() {
+    public CclienteOdtMBean() {
         selectedCliente = new Ccliente();
         clienteOE = new Ccliente();
-        filteredCliente = new ArrayList<>();
-        list =  new ArrayList<>();
+        filteredCliente = new ArrayList<Ccliente>();
     }
 
-    
-    public void llenarcliente(){
-        System.out.println("llenando clienteList");
-        list = new ArrayList<>();
-        String param = "{}";
-        String url = getHttpSegment() + "/WsRestFullJap/jap/ccliente/fccliente";        
-            String result = ClientRestFullResponse(url, param).getEntity(String.class);
-            JSONObject obj = new JSONObject(result);
-            JSONArray arr = obj.getJSONArray("dato");
-            for (int i = 0; i < arr.length(); i++) {
-                Ccliente c = new Ccliente();
-                c.setId(arr.getJSONObject(i).get("id").toString());
-                c.setNombre(arr.getJSONObject(i).get("nombre").toString());
-                c.setDireccion(arr.getJSONObject(i).get("direccion").toString());
-                c.setIdDepto(arr.getJSONObject(i).get("idDepto").toString());
-                c.setDescripcionDepto(arr.getJSONObject(i).get("descripcionDepto").toString());
-                c.setIdMunicipio(arr.getJSONObject(i).get("idMunicipio").toString());
-                c.setDescripcionMunicipio(arr.getJSONObject(i).get("descripcionMunicipio").toString());
-                c.setIdCiudad(arr.getJSONObject(i).get("idCiudad").toString());
-                c.setDescripcionCiudad(arr.getJSONObject(i).get("descripcionCiudad").toString());
-                c.setRegistroFiscal(arr.getJSONObject(i).get("registroFiscal").toString());
-                c.setNit(arr.getJSONObject(i).get("nit").toString());
-                c.setGiro(arr.getJSONObject(i).get("giro").toString());
-                c.setDescripcionGiro(arr.getJSONObject(i).get("descripcionGiro").toString());
-                c.setTelefono1(arr.getJSONObject(i).get("telefono1").toString());
-                c.setTelefono2(arr.getJSONObject(i).get("telefono2").toString());
-                c.setFax(arr.getJSONObject(i).get("fax").toString());
-                c.setLimiteDeCredito(arr.getJSONObject(i).get("limiteDeCredito").toString());
-                c.setEmail(arr.getJSONObject(i).get("email").toString());
-                c.setComentarios(arr.getJSONObject(i).get("comentarios").toString());
-                c.setPercepcion(arr.getJSONObject(i).get("percepcion").toString());
-                list.add(c);
-            }
-   
-}
-    public String clienteList() {
-        System.out.println("llenando clienteList");
+    public List<Ccliente> clienteList() {
+        //System.out.println("llenando clienteList");
         list = new ArrayList<>();
         String param = "{}";
         String url = getHttpSegment() + "/WsRestFullJap/jap/ccliente/fccliente";
@@ -105,7 +67,7 @@ public class CclienteMBean extends ClientUtils implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
     public void save() {
@@ -139,26 +101,25 @@ public class CclienteMBean extends ClientUtils implements Serializable {
     }
 
     public void selectClienteFromDialog() {
-        System.out.println("entro selectClienteFromDialog");
-        clienteOE =  new Ccliente();
-        this.clienteOE.setId(cliente.getId());
-        this.clienteOE.setComentarios(cliente.getComentarios());
-        this.clienteOE.setDireccion(cliente.getDireccion());
-        this.clienteOE.setEmail(cliente.getEmail());
-        this.clienteOE.setFax(cliente.getFax());
-        this.clienteOE.setIdCiudad(cliente.getIdCiudad());
-        this.clienteOE.setIdDepto(cliente.getIdDepto());
-        this.clienteOE.setDescripcionDepto(cliente.getDescripcionDepto());
-        this.clienteOE.setGiro(cliente.getGiro());
-        this.clienteOE.setIdMunicipio(cliente.getIdMunicipio());
-        this.clienteOE.setDescripcionMunicipio(cliente.getDescripcionMunicipio());
-        this.clienteOE.setLimiteDeCredito(cliente.getLimiteDeCredito());
-        this.clienteOE.setNombre(cliente.getNombre());
-        this.clienteOE.setNit(cliente.getNit());
-        this.clienteOE.setPercepcion(cliente.getPercepcion());
-        this.clienteOE.setRegistroFiscal(cliente.getRegistroFiscal());
-        this.clienteOE.setTelefono1(cliente.getTelefono1());
-        this.clienteOE.setTelefono2(cliente.getTelefono2());
+        ////System.out.println("entro selectClienteFromDialog");
+        this.clienteOE.setId(this.cliente.getId());
+        this.clienteOE.setComentarios(this.cliente.getComentarios());
+        this.clienteOE.setDireccion(this.cliente.getDireccion());
+        this.clienteOE.setEmail(this.cliente.getEmail());
+        this.clienteOE.setFax(this.cliente.getFax());
+        this.clienteOE.setIdCiudad(this.cliente.getIdCiudad());
+        this.clienteOE.setIdDepto(this.cliente.getIdDepto());
+        this.clienteOE.setDescripcionDepto(this.cliente.getDescripcionDepto());
+        this.clienteOE.setGiro(this.cliente.getGiro());
+        this.clienteOE.setIdMunicipio(this.cliente.getIdMunicipio());
+        this.clienteOE.setDescripcionMunicipio(this.cliente.getDescripcionMunicipio());
+        this.clienteOE.setLimiteDeCredito(this.cliente.getLimiteDeCredito());
+        this.clienteOE.setNombre(this.cliente.getNombre());
+        this.clienteOE.setNit(this.cliente.getNit());
+        this.clienteOE.setPercepcion(this.cliente.getPercepcion());
+        this.clienteOE.setRegistroFiscal(this.cliente.getRegistroFiscal());
+        this.clienteOE.setTelefono1(this.cliente.getTelefono1());
+        this.clienteOE.setTelefono2(this.cliente.getTelefono2());
     }
 
     private void nextIdCliente() {
@@ -170,24 +131,15 @@ public class CclienteMBean extends ClientUtils implements Serializable {
 
     }
 
-    public String getTestvar() {
-        return testvar;
-    }
-
-    public void setTestvar(String testvar) {
-        this.testvar = testvar;
-    }
-
     public void cleanObjects() {
-        //System.out.println("entro cleanObjects");
-        this.cliente = new Ccliente();
-        setTestvar("CAMBIO");
-        clienteList();
+        ////System.out.println("entro cleanObjects");
+        cliente = new Ccliente();
+        //System.out.println(cliente);
         nextIdCliente();
     }
     
     public void cleanClienteForm(){
-        clienteOE = null;
+        clienteOE = new Ccliente();
     }
 
     /*
@@ -233,5 +185,4 @@ public class CclienteMBean extends ClientUtils implements Serializable {
         this.list = list;
     }
 
-   
 }
